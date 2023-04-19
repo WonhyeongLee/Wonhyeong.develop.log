@@ -11,12 +11,13 @@ module.exports = {
   siteMetadata: {
     title: `Wonhyeong's log`,
     author: {
-      name: `Wonhyeong Lee`,
+      name: `이원형`,
     },
-    description: `개발훈련소`,
+    description: `보고 배운것을 내 것으로 만들기 위한 공간입니다.`,
     siteUrl: `https://www.naver.com`,
     social: {
-      twitter: ``,
+      github: `https://github.com/WonhyeongLee`,
+      email: `kkwon9607@gmail.com`,
     },
   },
   plugins: [
@@ -55,6 +56,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-fontawesome-css`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
