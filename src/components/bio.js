@@ -7,6 +7,8 @@
 
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { StaticImage } from "gatsby-plugin-image"
 
 const Bio = () => {
@@ -19,8 +21,10 @@ const Bio = () => {
             summary
           }
           social {
-            twitter
+            email
+            github
           }
+          description
         }
       }
     }
@@ -29,6 +33,7 @@ const Bio = () => {
   // Set these values by editing "siteMetadata" in gatsby-config.js
   const author = data.site.siteMetadata?.author
   const social = data.site.siteMetadata?.social
+  const description = data.site.siteMetadata?.description
 
   return (
     <div className="bio">
@@ -37,19 +42,27 @@ const Bio = () => {
         layout="fixed"
         formats={["auto", "webp", "avif"]}
         src="../images/profile-pic.png"
-        width={50}
-        height={50}
+        width={128}
+        height={128}
         quality={95}
         alt="Profile picture"
       />
       {author?.name && (
-        <p>
-          Written by <strong>{author.name}</strong> {author?.summary || null}
-          {` `}
-          <a href={`https://twitter.com/${social?.twitter || ``}`}>
-            You should follow them on Twitter
-          </a>
-        </p>
+        <div>
+          <p>
+            안녕하세요 <strong>{author.name}</strong> 입니다.
+          </p>
+          <p>{description}</p>
+          <div className="icon">
+            <a href={`${social?.github || ``}`}>
+              <FontAwesomeIcon
+                icon={faGithub}
+                size="2xl"
+                className="icon-git"
+              />
+            </a>
+          </div>
+        </div>
       )}
     </div>
   )
