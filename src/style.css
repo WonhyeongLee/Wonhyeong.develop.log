@@ -11,7 +11,7 @@
   --maxWidth-3xl: 48rem;
   --maxWidth-4xl: 56rem;
   --maxWidth-full: "100%";
-  --maxWidth-wrapper: var(--maxWidth-2xl);
+  --maxWidth-wrapper: var(--maxWidth-4xl);
   --spacing-px: "1px";
   --spacing-0: 0;
   --spacing-1: 0.25rem;
@@ -65,7 +65,8 @@
 *,
 :after,
 :before {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 html {
@@ -83,12 +84,6 @@ body {
 
 footer {
   padding: var(--spacing-6) var(--spacing-0);
-}
-
-hr {
-  background: var(--color-accent);
-  height: 1px;
-  border: 0;
 }
 
 /* Heading */
@@ -170,7 +165,7 @@ ol {
   margin-left: var(--spacing-0);
   margin-right: var(--spacing-0);
   padding: var(--spacing-0);
-  margin-bottom: var(--spacing-8);
+  /* margin-bottom: var(--spacing-8); */
   list-style-position: outside;
   list-style-image: none;
 }
@@ -225,10 +220,26 @@ table thead tr th {
   border-bottom: 1px solid var(--color-accent);
 }
 
+hr {
+  width: 100%;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  -o-border-image: initial;
+    border-image: initial;
+  border-bottom: 1px solid rgb(176, 176, 179);
+}
 /* Link */
-
-a {
-  color: var(--color-primary);
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 a:hover,
@@ -245,7 +256,7 @@ a:focus {
 }
 
 .global-wrapper[data-is-root-path="true"] .bio {
-  margin-bottom: var(--spacing-20);
+  /* margin-bottom: var(--spacing-20); */
 }
 
 .global-header {
@@ -285,8 +296,12 @@ a:focus {
 }
 
 .bio {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  margin-bottom: var(--spacing-16);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .bio p {
@@ -294,10 +309,13 @@ a:focus {
 }
 
 .bio-avatar {
-  margin-right: var(--spacing-4);
-  margin-bottom: var(--spacing-0);
-  min-width: 50px;
-  border-radius: 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+    margin-right: 16px;
+    border-radius: 999px;
+    background-size: cover;
+    background-position: center center;
 }
 
 .blog-post header h1 {
@@ -315,6 +333,20 @@ a:focus {
 
 .gatsby-highlight {
   margin-bottom: var(--spacing-8);
+}
+
+.icon .icon-git{
+  color: #7b8493;
+}
+.icon .icon-git:hover {
+  color: #1a202c;
+  -webkit-transition: 0.3;
+  -o-transition: 0.3;
+  -webkit-transition: color 0.3;
+  -o-transition: color 0.3;
+  -webkit-transition: color 0.3s;
+  -o-transition: color 0.3s;
+  transition: color 0.3s;
 }
 
 /* Media queries */
