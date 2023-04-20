@@ -5,10 +5,12 @@
  */
 
 const path = require(`path`)
+const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 // Define the template for blog post
 const blogPost = path.resolve(`./src/templates/blog-post.js`)
+const TagPageTemplete = path.resolve(`./src/templates/tags.js`)
 
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
@@ -25,6 +27,26 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           fields {
             slug
           }
+        }
+      }
+      postsRemark: allMarkdownRemark(
+        sort: { frontmatter: { date: DESC } }
+        limit: 2000
+      ) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              tags
+            }
+          }
+        }
+      }
+      tagsGroup: allMarkdownRemark(limit: 2000) {
+        group(field: { frontmatter: { tags: SELECT } }) {
+          fieldValue
         }
       }
     }
@@ -60,6 +82,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+  const tags = result.data.tagsGroup.group
+  tags.forEach(tag => {
+    createPage({
+      path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
+      component: TagPageTemplete,
+      context: {
+        tag: tag.fieldValue,
+      },
+    })
+  })
 }
 
 /**
@@ -104,7 +136,8 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
 
     type Social {
-      twitter: String
+      github: String
+      email: String
     }
 
     type MarkdownRemark implements Node {

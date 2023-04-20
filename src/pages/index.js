@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
+import kebabCase from "lodash/kebabCase"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -24,6 +25,8 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
+      <Seo title="All posts" />
+      <Link to="/tags">View all tags</Link>
       <Bio />
       <hr></hr>
       <ol style={{ listStyle: `none` }}>
@@ -52,6 +55,17 @@ const BlogIndex = ({ data, location }) => {
                     itemProp="description"
                   />
                 </section>
+                <footer>
+                  {post.frontmatter.tags && (
+                    <ul>
+                      {post.frontmatter.tags.map(tag => (
+                        <li key={tag}>
+                          <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </footer>
               </article>
             </li>
           )
@@ -77,7 +91,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 1000) {
       nodes {
         excerpt
         fields {
@@ -87,7 +101,12 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
           title
           description
+          tags
         }
+      }
+      group(field: { frontmatter: { tags: SELECT } }) {
+        tag: fieldValue
+        totalCount
       }
     }
   }

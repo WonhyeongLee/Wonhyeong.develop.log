@@ -2,6 +2,7 @@
 title: 블로그 개설
 date: "2023-04-03"
 description: "첫글 등록, 간단한 계획"
+tags: ["계획","Gatsby"]
 ---
 
 ## 시작
