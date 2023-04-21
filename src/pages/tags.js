@@ -1,9 +1,10 @@
 import React from "react"
 
 // Components
-import { Link, graphql } from "gatsby"
-import kebabCase from "lodash/kebabCase"
+import { graphql } from "gatsby"
 import Seo from "../components/seo"
+import Tag from "../components/tags"
+import Layout from "../components/layout"
 
 const TagsPage = ({
   data: {
@@ -12,23 +13,29 @@ const TagsPage = ({
       siteMetadata: { title },
     },
   },
+  location,
 }) => {
   return (
-    <div>
+    <Layout location={location} title={title}>
       <Seo title={title} />
       <div>
         <h1>Tags</h1>
-        <ul>
+        <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
           {group.map(tag => (
-            <li key={tag.fieldValue}>
-              <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                {tag.fieldValue} ({tag.totalCount})
-              </Link>
+            <li
+              key={tag.fieldValue}
+              style={{
+                display: "inline-block",
+                marginRight: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              <Tag tag={tag.fieldValue} /> ({tag.totalCount})
             </li>
           ))}
         </ul>
       </div>
-    </div>
+    </Layout>
   )
 }
 
