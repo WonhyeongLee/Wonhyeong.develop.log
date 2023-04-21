@@ -56,6 +56,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-emotion`,
     `gatsby-plugin-fontawesome-css`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
