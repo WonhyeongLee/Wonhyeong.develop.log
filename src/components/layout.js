@@ -1,6 +1,13 @@
 import * as React from "react"
 import { Link } from "gatsby"
 
+import {
+  globalHeaderStyle,
+  globalMainWrapperStyle,
+  footerStyle,
+  linkStyle,
+} from "./styles"
+
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
@@ -21,15 +28,20 @@ const Layout = ({ location, title, children }) => {
   }
 
   return (
-    <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <header className="global-header">{header}</header>
-      <main>{children}</main>
-      <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+    <>
+      <header css={globalHeaderStyle}>{header}</header>
+      <main css={globalMainWrapperStyle}>{children}</main>
+      <footer css={footerStyle}>
+        <p>© Wonhyeong's Log</p>
+        <p>
+          {new Date().getFullYear()}, Built with
+          {` `}
+          <a href="https://www.gatsbyjs.com" css={linkStyle}>
+            Gatsby
+          </a>
+        </p>
       </footer>
-    </div>
+    </>
   )
 }
 
