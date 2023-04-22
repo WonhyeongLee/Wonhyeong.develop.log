@@ -2,11 +2,13 @@ import { css } from "@emotion/react"
 export const globalMainWrapperStyle = css`
   margin: var(--spacing-0) auto;
   max-width: var(--maxWidth-wrapper);
-  padding-top: 100px;
+  padding-top: 120px;
 `
 
 export const globalHeaderStyle = css`
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -34,4 +36,15 @@ export const footerStyle = css`
 
 export const linkStyle = css`
   color: var(--color-text);
+`
+
+export const socialIconListStyle = css`
+  margin-top: var(--spacing-2);
+`
+export const socialIconStyle = css`
+  color: #7b8493;
+  &:hover {
+    color: #1a202c;
+    transition: color 0.3s;
+  }
 `

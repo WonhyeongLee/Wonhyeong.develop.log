@@ -29,7 +29,12 @@ const Layout = ({ location, title, children }) => {
 
   return (
     <>
-      <header css={globalHeaderStyle}>{header}</header>
+      <header css={globalHeaderStyle}>
+        {header}
+        <div>
+          <Link to="/tags">tags</Link>
+        </div>
+      </header>
       <main css={globalMainWrapperStyle}>{children}</main>
       <footer css={footerStyle}>
         <p>© Wonhyeong's Log</p>

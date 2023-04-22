@@ -1,10 +1,10 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import kebabCase from "lodash/kebabCase"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-
+import Tag from "../components/tags"
+import { tagListStyle } from "./style/styles"
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
@@ -25,7 +25,6 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <Seo title="All posts" />
-      <Link to="/tags">View all tags</Link>
       <Bio />
       <hr></hr>
       <ol style={{ listStyle: `none` }}>
@@ -56,10 +55,10 @@ const BlogIndex = ({ data, location }) => {
                 </section>
                 <footer>
                   {post.frontmatter.tags && (
-                    <ul>
+                    <ul css={tagListStyle}>
                       {post.frontmatter.tags.map(tag => (
                         <li key={tag}>
-                          <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
+                          <Tag key={tag} tag={tag} />
                         </li>
                       ))}
                     </ul>
