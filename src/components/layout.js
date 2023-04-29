@@ -1,14 +1,28 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
+import Tag from "./tags"
 
 import {
   globalHeaderStyle,
   globalMainWrapperStyle,
   footerStyle,
   linkStyle,
-} from "./styles"
+  tagsListStyle,
+} from "../styles/style.js"
 
 const Layout = ({ location, title, children }) => {
+  const [isTagListVisible, setIsTagListVisible] = React.useState(false)
+
+  const data = useStaticQuery(graphql`
+    query {
+      allMarkdownRemark(limit: 2000) {
+        group(field: frontmatter___tags) {
+          fieldValue
+        }
+      }
+    }
+  `)
+  const tags = data.allMarkdownRemark.group
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
   let header
@@ -32,9 +46,18 @@ const Layout = ({ location, title, children }) => {
       <header css={globalHeaderStyle}>
         {header}
         <div>
-          <Link to="/tags">tags</Link>
+          <button onClick={() => setIsTagListVisible(!isTagListVisible)}>
+            tags
+          </button>
         </div>
       </header>
+      {isTagListVisible && (
+        <div css={tagsListStyle(isTagListVisible)}>
+          {tags.map(tag => (
+            <Tag key={tag.fieldValue} tag={tag.fieldValue} />
+          ))}
+        </div>
+      )}
       <main css={globalMainWrapperStyle}>{children}</main>
       <footer css={footerStyle}>
         <p>© Wonhyeong's Log</p>

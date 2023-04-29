@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useState } from "react"
+import TagPageTemplete from "../templates/tags"
 
 // Components
 import { graphql } from "gatsby"
@@ -15,6 +16,7 @@ const TagsPage = ({
   },
   location,
 }) => {
+  const [selectedTag, setSelectedTag] = useState(null)
   return (
     <Layout location={location} title={title}>
       <Seo title={title} />
@@ -30,10 +32,13 @@ const TagsPage = ({
                 marginBottom: "10px",
               }}
             >
-              <Tag tag={tag.fieldValue} /> ({tag.totalCount})
+              <button onClick={() => setSelectedTag(tag.fieldValue)}>
+                <Tag tag={tag.fieldValue} /> ({tag.totalCount})
+              </button>
             </li>
           ))}
         </ul>
+        {selectedTag && <TagPageTemplete tag={selectedTag} />}
       </div>
     </Layout>
   )
