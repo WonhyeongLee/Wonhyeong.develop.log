@@ -1,0 +1,79 @@
+import { css, keyframes } from "@emotion/react"
+
+//animation
+const slideDown = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+// components Style
+export const globalContentsStyle = css`
+  margin: var(--spacing-0) auto;
+  max-width: var(--maxWidth-wrapper);
+`
+export const globalMainWrapperStyle = css`
+  ${globalContentsStyle}
+  padding-top: 60px;
+`
+export const globalHeaderStyle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 8px;
+  backdrop-filter: blur(5px);
+  opacity: 1;
+  transition: top 0.5s ease 0s, opacity 0.5s ease 0s;
+  z-index: 1;
+  margin-bottom: var(--spacing-6);
+`
+export const footerStyle = css`
+  text-align: center;
+  color: var(--color-text);
+  border-top: 1px solid rgb(233, 236, 239);
+  margin-top: 180px;
+  padding-top: var(--spacing-12);
+  > p {
+    margin: var(--spacing-1) 0;
+  }
+`
+export const linkStyle = css`
+  color: var(--color-text);
+`
+export const socialIconListStyle = css`
+  margin-top: var(--spacing-2);
+`
+export const socialIconStyle = css`
+  color: #7b8493;
+  &:hover {
+    color: #1a202c;
+    transition: color 0.3s;
+  }
+`
+// pages Style
+export const tagListStyle = css`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-2);
+`
+// layout의 tagListStyle
+export const tagsListStyle = isTagListVisible => css`
+  ${globalContentsStyle}
+  display: ${isTagListVisible ? "flex" : "none"};
+  flex-wrap: wrap;
+  background: #f4f4f4;
+  padding: 10px 20px;
+  animation: ${isTagListVisible
+    ? css`
+        ${slideDown} 0.3s ease-out forwards
+      `
+    : "none"};
+`

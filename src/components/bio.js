@@ -10,7 +10,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { StaticImage } from "gatsby-plugin-image"
-import { socialIconListStyle, socialIconStyle } from "./styles"
+import { socialIconListStyle, socialIconStyle } from "../styles/style"
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
@@ -55,7 +55,7 @@ const Bio = () => {
           </p>
           <p>{description}</p>
           <div css={socialIconListStyle}>
-            <a href={`${social?.github || ``}`}>
+            <a href={`${social?.github || ``}`} target="_blank">
               <FontAwesomeIcon
                 icon={faGithub}
                 size="2xl"
