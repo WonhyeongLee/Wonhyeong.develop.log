@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Tag from "./tags"
+import { Transition } from "react-transition-group"
 
 import {
   globalHeaderStyle,
@@ -51,13 +52,15 @@ const Layout = ({ location, title, children }) => {
           </button>
         </div>
       </header>
-      {isTagListVisible && (
-        <div css={tagsListStyle(isTagListVisible)}>
-          {tags.map(tag => (
-            <Tag key={tag.fieldValue} tag={tag.fieldValue} />
-          ))}
-        </div>
-      )}
+      <Transition in={isTagListVisible} timeout={300}>
+        {state => (
+          <div css={tagsListStyle(state)}>
+            {tags.map(tag => (
+              <Tag key={tag.fieldValue} tag={tag.fieldValue} />
+            ))}
+          </div>
+        )}
+      </Transition>
       <main css={globalMainWrapperStyle}>{children}</main>
       <footer css={footerStyle}>
         <p>© Wonhyeong's Log</p>

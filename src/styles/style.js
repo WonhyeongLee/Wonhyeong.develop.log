@@ -11,6 +11,16 @@ const slideDown = keyframes`
     transform: translateY(0);
   }
 `
+const slideUp = keyframes`
+  0%{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100%{
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+`
 
 // components Style
 export const globalContentsStyle = css`
@@ -65,15 +75,25 @@ export const tagListStyle = css`
   margin-top: var(--spacing-2);
 `
 // layout의 tagListStyle
-export const tagsListStyle = isTagListVisible => css`
+export const tagsListStyle = state => css`
   ${globalContentsStyle}
-  display: ${isTagListVisible ? "flex" : "none"};
+  display: flex;
   flex-wrap: wrap;
   background: #f4f4f4;
   padding: 10px 20px;
-  animation: ${isTagListVisible
-    ? css`
-        ${slideDown} 0.3s ease-out forwards
-      `
-    : "none"};
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+
+  ${state === "entering" &&
+  css`
+    animation: ${slideDown} 0.3s ease-out forwards;
+  `}
+  ${state === "entered" &&
+  css`
+    opacity: 1;
+  `}
+  ${state === "exiting" &&
+  css`
+    animation: ${slideUp} 0.3s ease-in forwards;
+  `}
 `
