@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "gatsby"
 import kebabCase from "lodash/kebabCase"
 import { css, cx } from "@emotion/css"
+import TagContext from "../context/TagContext"
 
 // styled 방식
 // import styled from "@emotion/styled"
@@ -33,11 +34,21 @@ const tagStyle = css`
   }
 `
 
-const Tag = ({ tag }) => (
-  // <StyledTag to={`/tags/${kebabCase(tag)}`}>{tag}</StyledTag>
-  <Link to={`/tags/${kebabCase(tag)}`} className={cx(tagStyle)}>
-    {tag}
-  </Link>
-)
+const Tag = ({ tag }) => {
+  const { setSelectedTag } = useContext(TagContext)
+
+  return (
+    <Link
+      to={`/tags/${kebabCase(tag)}`}
+      className={cx(tagStyle)}
+      onClick={event => {
+        event.preventDefault()
+        setSelectedTag(tag)
+      }}
+    >
+      {tag}
+    </Link>
+  )
+}
 
 export default Tag

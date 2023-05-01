@@ -1,13 +1,25 @@
-import * as React from "react"
+import React, { useMemo, useContext } from "react"
 import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Tag from "../components/tags"
 import { tagListStyle } from "../styles/style"
+import TagContext from "../context/TagContext"
+
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
+  const { selectedTag } = useContext(TagContext)
+
+  const filteredPosts = useMemo(() => {
+    if (selectedTag === null) {
+      return posts
+    }
+    return posts.filter(post => post.frontmatter.tags.includes(selectedTag))
+  }, [selectedTag])
+
+  console.log(`Number of posts after filtering: ${filteredPosts.length}`)
 
   if (posts.length === 0) {
     return (
@@ -28,7 +40,7 @@ const BlogIndex = ({ data, location }) => {
       <Bio />
       <hr></hr>
       <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
+        {filteredPosts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
           return (
             <li key={post.fields.slug}>
