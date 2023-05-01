@@ -77,19 +77,22 @@ export const tagListStyle = css`
 // layout의 tagListStyle
 export const tagsListStyle = state => css`
   ${globalContentsStyle}
-  display: flex;
   flex-wrap: wrap;
   background: #f4f4f4;
   padding: 10px 20px;
+  visibility: hidden;
   opacity: 0;
-  transition: opacity 300ms ease-in-out;
+  transition: visibility 300ms, opacity 300ms ease-in-out;
 
   ${state === "entering" &&
   css`
+    visibility: visible;
+    opacity: 0;
     animation: ${slideDown} 0.3s ease-out forwards;
   `}
   ${state === "entered" &&
   css`
+    visibility: visible;
     opacity: 1;
   `}
   ${state === "exiting" &&
