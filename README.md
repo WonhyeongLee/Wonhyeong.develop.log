@@ -2,16 +2,12 @@
 
 *[Gatsby-blog-starter](https://github.com/gatsbyjs/gatsby-starter-blog)* 로 시작했고 netlify를 이용해 배포합니다.
 
-글 작성, 수정은 Main 브런치에서 하고 블로그 기능 추가는 develop 브런치에서 진행합니다.
+## 현재 적용된 기능
+- 태그페이지말고 기본 페이지에서 태그별로 필터링 할 수 있도록 애니매이션(react-transition-group) 사용해서 추가
 
-## 추가 할 기능
----
->우선적으로 할 것 
-- 레이아웃 수정
-- Gatsby v5로 마이그레이션
-- 태그 + 태그 별 게시물 검색
-- TOC + scrollspy 
-- 덧글기능
->그 다음에 진행 할 것
-- SEO
-- JS -> TS로 변환
+## 개선 예정인 부분
+-[ ] JS -> TS로 마이그래이션
+-[ ] CMD적용하기
+
+## 트러블슈팅
+-[ ] 배포환경에서만 CSS 적용이 느려서 눈에 띄게 불편한 문제(5/27)
