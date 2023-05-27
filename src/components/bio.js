@@ -56,11 +56,7 @@ const Bio = () => {
           <p>{description}</p>
           <div css={socialIconListStyle}>
             <a href={`${social?.github || ``}`} target="_blank">
-              <FontAwesomeIcon
-                icon={faGithub}
-                size="2xl"
-                css={socialIconStyle}
-              />
+              <FontAwesomeIcon icon={faGithub} css={socialIconStyle} />
             </a>
           </div>
         </div>

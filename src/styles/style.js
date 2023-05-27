@@ -63,6 +63,8 @@ export const socialIconListStyle = css`
 `
 export const socialIconStyle = css`
   color: #7b8493;
+  font-size: 2rem;
+
   &:hover {
     color: #1a202c;
     transition: color 0.3s;
