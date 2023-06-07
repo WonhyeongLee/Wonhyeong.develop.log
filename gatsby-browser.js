@@ -19,3 +19,7 @@ export const wrapRootElement = ({ element }) => {
 // export const wrapPageElement = ({ element, props }) => {
 //   return <Layout {...props}>{element}</Layout>
 // }
+//SSG에서 Font Awesome 스타일이 head에 추가되는 시점을 조정
+import "@fortawesome/fontawesome-svg-core/styles.css"
+import { config } from "@fortawesome/fontawesome-svg-core"
+config.autoAddCss = false
