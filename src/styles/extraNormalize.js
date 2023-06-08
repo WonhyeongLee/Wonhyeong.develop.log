@@ -1,8 +1,7 @@
 const extraNormalize = `
   ol, ul {
-    list-style: none;
     margin: 0;
-    padding: 0;
+    padding-left: 1.5rem;
   }
 `
 

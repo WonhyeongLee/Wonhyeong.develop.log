@@ -74,6 +74,7 @@ export const socialIconStyle = css`
 export const tagListStyle = css`
   display: flex;
   flex-wrap: wrap;
+  list-style: none;
   margin-top: var(--spacing-2);
 `
 // layout의 tagListStyle

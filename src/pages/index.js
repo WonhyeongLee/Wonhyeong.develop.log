@@ -6,6 +6,7 @@ import Seo from "../components/seo"
 import Tag from "../components/tags"
 import { tagListStyle } from "../styles/style"
 import TagContext from "../context/TagContext"
+import { css } from "@emotion/react"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -65,7 +66,11 @@ const BlogIndex = ({ data, location }) => {
                     itemProp="description"
                   />
                 </section>
-                <footer>
+                <footer
+                  css={css`
+                    margin-left: -32px;
+                  `}
+                >
                   {post.frontmatter.tags && (
                     <ul css={tagListStyle}>
                       {post.frontmatter.tags.map(tag => (

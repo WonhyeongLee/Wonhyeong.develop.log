@@ -45,7 +45,6 @@ const BlogPostTemplate = ({
             flexWrap: `wrap`,
             justifyContent: `space-between`,
             listStyle: `none`,
-            padding: 0,
           }}
         >
           <li>
