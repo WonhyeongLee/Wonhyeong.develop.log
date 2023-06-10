@@ -6,7 +6,7 @@ import { Transition } from "react-transition-group"
 
 import {
   globalHeaderStyle,
-  globalMainWrapperStyle,
+  mainWrapperStyle,
   footerStyle,
   linkStyle,
   tagsListStyle,
@@ -53,16 +53,21 @@ const Layout = ({ location, title, children }) => {
           </button>
         </div>
       </header>
-      <Transition in={isTagListVisible} timeout={300}>
-        {state => (
-          <div css={tagsListStyle(state)}>
-            {tags.map(tag => (
-              <Tag key={tag.fieldValue} tag={tag.fieldValue} />
-            ))}
-          </div>
-        )}
-      </Transition>
-      <main css={globalMainWrapperStyle}>{children}</main>
+      <main
+        css={mainWrapperStyle}
+        className={isTagListVisible ? "slideDown" : "slideUp"}
+      >
+        <Transition in={isTagListVisible} timeout={300} unmountOnExit>
+          {state => (
+            <div css={tagsListStyle(state)}>
+              {tags.map(tag => (
+                <Tag key={tag.fieldValue} tag={tag.fieldValue} />
+              ))}
+            </div>
+          )}
+        </Transition>
+        {children}
+      </main>
       <footer css={footerStyle}>
         <p>© Wonhyeong's Log</p>
         <p>
