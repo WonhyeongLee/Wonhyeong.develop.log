@@ -1,17 +1,21 @@
 # Wonhyeong's log 개인 블로그
 
 _[Gatsby-blog-starter](https://github.com/gatsbyjs/gatsby-starter-blog)_ 로 시작했고 netlify를 이용해 배포합니다.
+https://wonhyeong.netlify.app/ 
+기능추가, 개선, 삭제에 대해서 issue를 작성하고 dev 브랜치 밑에 feat 브랜치를 생성 후 dev에 merge하고 빌드 테스트하고 master에 적용하고 있습니다.
 
-## 현재 적용된 기능
 
-- 태그페이지말고 기본 페이지에서 태그별로 필터링 할 수 있도록 애니매이션(react-transition-group) 사용해서 추가
+## 추가한 기능
+- 태그 분류
+- 태그 
 
-## 개선 예정인 부분
+## 추가 예정인 기능
+- 글 시리즈로 분류
+- 다크모드
+- SEO
+- TOC + Scrollspy
+- JS -> TS로 변환
 
-- [ ] JS -> TS로 마이그래이션
-- [ ] CMS 적용
-- [ ] TOC + scrollspy 추가
-
-## 트러블슈팅
-
-- [ ] 배포환경에서만 CSS 적용이 느려서 눈에 띄게 불편한 문제(5/27)
+## 해결한 이슈
+- UI 변경 및 FOUC개선 https://github.com/WonhyeongLee/Wonhyeong.develop.log/pull/4 
+- 아이콘 크기 문제 해결 https://github.com/WonhyeongLee/Wonhyeong.develop.log/pull/2 
