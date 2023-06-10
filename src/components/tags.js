@@ -24,12 +24,13 @@ const tagStyle = css`
   display: inline-block;
   margin: 0 5px;
   padding: 5px 10px;
-  background-color: #f8f8f8;
-  border-radius: 20px;
+  background-color: #dee2e6;
   font-size: 14px;
   text-decoration: none;
   color: #333;
   &:hover {
+    font-weight: var(--fontWeight-bold);
+    color: #f31010;
     background-color: #e0e0e0;
   }
 `
