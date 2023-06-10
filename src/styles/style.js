@@ -1,6 +1,5 @@
 import { css, keyframes } from "@emotion/react"
 
-//animation
 const slideDown = keyframes`
   0% {
     opacity: 0;
@@ -21,6 +20,23 @@ const slideUp = keyframes`
     transform: translateY(-20px);
   }
 `
+const slideDownAnimation = keyframes`
+  0% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`
+
+const slideUpAnimation = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+`
 
 // components Style
 export const globalContentsStyle = css`
@@ -29,7 +45,6 @@ export const globalContentsStyle = css`
 `
 export const globalMainWrapperStyle = css`
   ${globalContentsStyle}
-  padding-top: 60px;
 `
 export const globalHeaderStyle = css`
   display: flex;
@@ -80,8 +95,10 @@ export const tagListStyle = css`
 // layout의 tagListStyle
 export const tagsListStyle = state => css`
   ${globalContentsStyle}
+  position: relative;
   flex-wrap: wrap;
   background: #f4f4f4;
+  margin: 20px 0;
   padding: 10px 20px;
   visibility: hidden;
   opacity: 0;
@@ -100,6 +117,18 @@ export const tagsListStyle = state => css`
   `}
   ${state === "exiting" &&
   css`
-    animation: ${slideUp} 0.3s ease-in forwards;
+    animation: ${slideUp} 0.2s ease-in-out forwards;
   `}
+`
+
+export const mainWrapperStyle = css`
+  ${globalMainWrapperStyle};
+
+  &.slideDown {
+    animation: ${slideDownAnimation} 0.3s ease-in-out forwards;
+  }
+
+  &.slideUp {
+    animation: ${slideUpAnimation} 0.5s ease-in-out forwards;
+  }
 `

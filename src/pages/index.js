@@ -82,6 +82,7 @@ const BlogIndex = ({ data, location }) => {
                   )}
                 </footer>
               </article>
+              <hr />
             </li>
           )
         })}

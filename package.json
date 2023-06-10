@@ -18,6 +18,7 @@
     "gatsby": "^5.7.0",
     "gatsby-plugin-emotion": "^8.9.0",
     "gatsby-plugin-feed": "^5.7.0",
+    "gatsby-plugin-fix-fouc": "^1.0.3",
     "gatsby-plugin-image": "^3.7.0",
     "gatsby-plugin-manifest": "^5.7.0",
     "gatsby-plugin-mdx": "^5.9.0",
