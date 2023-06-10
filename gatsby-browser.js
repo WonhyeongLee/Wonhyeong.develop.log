@@ -2,7 +2,8 @@ import React from "react"
 // normalize with emotion
 import { Global, css } from "@emotion/react"
 import * as normalize from "normalize.css"
-import extraNormalize from "./src/styles/extraNormalize"
+import { globalVariables } from "./src/styles/globalVariables"
+import { globalStyles } from "./src/styles/globalStyles"
 // custom typefaces
 import "@fontsource/montserrat/variable.css"
 import "@fontsource/merriweather"
@@ -23,7 +24,8 @@ export const wrapRootElement = ({ element }) => {
       <Global
         styles={css`
           ${normalize}
-          ${extraNormalize}
+          ${globalVariables}
+          ${globalStyles}
         `}
       />
       <TagProvider>{element}</TagProvider>
