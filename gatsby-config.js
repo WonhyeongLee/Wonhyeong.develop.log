@@ -61,6 +61,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-emotion`,
+    `gatsby-plugin-fix-fouc`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
