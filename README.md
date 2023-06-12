@@ -4,6 +4,9 @@ _[Gatsby-blog-starter](https://github.com/gatsbyjs/gatsby-starter-blog)_ 로 시
 
 https://wonhyeong.netlify.app/ 
 
+![image](https://github.com/WonhyeongLee/Wonhyeong.develop.log/assets/54429762/c49b4cd9-6f8a-4ef7-93dc-eea0c25e41fe)
+(6/10 업데이트)
+
 ## 추가한 기능 (06/10 업데이트)
 - 태그 분류
 - 태그 
