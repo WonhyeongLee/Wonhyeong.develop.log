@@ -1,4 +1,5 @@
 import React, { useContext } from "react"
+import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
 import kebabCase from "lodash/kebabCase"
 import { css } from "@emotion/react"
@@ -28,13 +29,16 @@ const selectedTagStyle = css`
 
 const Tag = ({ tag }) => {
   const { selectedTag, setSelectedTag } = useContext(TagContext)
+  const location = useLocation()
 
   return (
     <Link
       to={`/tags/${kebabCase(tag)}`}
       css={tag === selectedTag ? [tagStyle, selectedTagStyle] : tagStyle}
       onClick={event => {
-        event.preventDefault()
+        if (location.pathname === "/") {
+          event.preventDefault()
+        }
         setSelectedTag(tag)
       }}
     >
