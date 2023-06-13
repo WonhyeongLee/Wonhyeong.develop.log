@@ -9,9 +9,18 @@ const TagProvider = ({ children }) => {
     setSelectedTag(tag)
   }
 
+  const resetSelectedTag = () => {
+    console.log("resetSelectedTag" + selectedTag)
+    setSelectedTag(null)
+  }
+
   return (
     <TagContext.Provider
-      value={{ selectedTag, setSelectedTag: handleSetSelectedTag }}
+      value={{
+        selectedTag,
+        setSelectedTag: handleSetSelectedTag,
+        resetSelectedTag,
+      }}
     >
       {children}
     </TagContext.Provider>
