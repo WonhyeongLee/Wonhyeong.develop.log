@@ -11,16 +11,16 @@ import { css } from "@emotion/react"
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
-  const { selectedTag } = useContext(TagContext)
+  const { selectedTags } = useContext(TagContext)
 
   const filteredPosts = useMemo(() => {
-    if (selectedTag === null) {
+    if (!selectedTags.length) {
       return posts
     }
-    return posts.filter(post => post.frontmatter.tags.includes(selectedTag))
-  }, [selectedTag])
-
-  console.log(`Number of posts after filtering: ${filteredPosts.length}`)
+    return posts.filter(post =>
+      selectedTags.every(tag => post.frontmatter.tags.includes(tag))
+    )
+  }, [selectedTags])
 
   if (posts.length === 0) {
     return (

@@ -28,18 +28,18 @@ const selectedTagStyle = css`
 `
 
 const Tag = ({ tag }) => {
-  const { selectedTag, setSelectedTag } = useContext(TagContext)
+  const { selectedTags, setSelectedTags } = useContext(TagContext)
   const location = useLocation()
 
   return (
     <Link
       to={`/tags/${kebabCase(tag)}`}
-      css={tag === selectedTag ? [tagStyle, selectedTagStyle] : tagStyle}
+      css={selectedTags.includes(tag) ? [tagStyle, selectedTagStyle] : tagStyle}
       onClick={event => {
         if (location.pathname === "/") {
           event.preventDefault()
         }
-        setSelectedTag(tag)
+        setSelectedTags(tag)
       }}
     >
       {tag}

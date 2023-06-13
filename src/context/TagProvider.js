@@ -2,24 +2,28 @@ import React, { useState } from "react"
 import TagContext from "./TagContext"
 
 const TagProvider = ({ children }) => {
-  const [selectedTag, setSelectedTag] = useState(null)
+  const [selectedTags, setSelectedTags] = useState([])
 
   const handleSetSelectedTag = tag => {
-    console.log(`Setting selected tag: ${tag}`)
-    setSelectedTag(tag)
+    setSelectedTags(prevSelectedTags => {
+      if (prevSelectedTags.includes(tag)) {
+        return prevSelectedTags.filter(selectedTag => selectedTag !== tag)
+      } else {
+        return [...prevSelectedTags, tag]
+      }
+    })
   }
 
-  const resetSelectedTag = () => {
-    console.log("resetSelectedTag" + selectedTag)
-    setSelectedTag(null)
+  const resetSelectedTags = () => {
+    setSelectedTags([])
   }
 
   return (
     <TagContext.Provider
       value={{
-        selectedTag,
-        setSelectedTag: handleSetSelectedTag,
-        resetSelectedTag,
+        selectedTags,
+        setSelectedTags: handleSetSelectedTag,
+        resetSelectedTags,
       }}
     >
       {children}
