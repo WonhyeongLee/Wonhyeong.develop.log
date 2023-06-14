@@ -14,7 +14,7 @@ const BlogIndex = ({ data, location }) => {
   const { selectedTags } = useContext(TagContext)
 
   const filteredPosts = useMemo(() => {
-    if (!selectedTags.length) {
+    if (!selectedTags.length || selectedTags.includes("All")) {
       return posts
     }
     return posts.filter(post =>
