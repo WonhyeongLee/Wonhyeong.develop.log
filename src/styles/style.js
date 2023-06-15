@@ -131,4 +131,8 @@ export const mainWrapperStyle = css`
   &.slideUp {
     animation: ${slideUpAnimation} 0.5s ease-in-out forwards;
   }
+
+  article {
+    padding-top: var(--spacing-12);
+  }
 `
