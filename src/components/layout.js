@@ -13,7 +13,7 @@ import {
 } from "../styles/style.js"
 
 const Layout = ({ location, title, children }) => {
-  const [isTagListVisible, setIsTagListVisible] = React.useState(false)
+  const [isTagListVisible, setIsTagListVisible] = React.useState(true)
   const { resetSelectedTags } = useContext(TagContext)
 
   const data = useStaticQuery(graphql`
@@ -63,6 +63,7 @@ const Layout = ({ location, title, children }) => {
         <Transition in={isTagListVisible} timeout={300} unmountOnExit>
           {state => (
             <div css={tagsListStyle(state)}>
+              <Tag key="All" tag="All" />
               {tags.map(tag => (
                 <Tag key={tag.fieldValue} tag={tag.fieldValue} />
               ))}

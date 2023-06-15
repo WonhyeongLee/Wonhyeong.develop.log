@@ -2,20 +2,27 @@ import React, { useState } from "react"
 import TagContext from "./TagContext"
 
 const TagProvider = ({ children }) => {
-  const [selectedTags, setSelectedTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState(["All"])
 
   const handleSetSelectedTag = tag => {
     setSelectedTags(prevSelectedTags => {
-      if (prevSelectedTags.includes(tag)) {
-        return prevSelectedTags.filter(selectedTag => selectedTag !== tag)
-      } else {
-        return [...prevSelectedTags, tag]
+      if (tag === "All") {
+        return ["All"]
       }
+      if (prevSelectedTags.includes(tag)) {
+        const newTags = prevSelectedTags.filter(
+          selectedTag => selectedTag !== tag
+        )
+        return newTags.length ? newTags : ["All"]
+      }
+      return prevSelectedTags.includes("All")
+        ? [tag]
+        : [...prevSelectedTags, tag]
     })
   }
 
   const resetSelectedTags = () => {
-    setSelectedTags([])
+    setSelectedTags(["All"])
   }
 
   return (
