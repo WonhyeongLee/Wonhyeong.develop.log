@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 const TagContext = createContext({
-  selectedTags: [],
+  selectedTags: ['All'],
   setSelectedTags: () => {},
   resetSelectedTags: () => {}
 });

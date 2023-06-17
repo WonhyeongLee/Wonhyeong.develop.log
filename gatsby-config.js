@@ -22,34 +22,33 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-image`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`
-      }
-    },
     `gatsby-plugin-netlify`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`
+        name: `blog`,
+        path: `${__dirname}/content/blog`
       }
     },
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          {
-            resolve: `gatsby-remark-gifs`
-          },
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630
             }
           },
+          {
+            resolve: `gatsby-remark-gifs`
+          },
+          {
+            resolve: `gatsby-remark-copy-linked-files`
+          },
+
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
@@ -62,8 +61,6 @@ module.exports = {
     },
     `gatsby-plugin-emotion`,
     `gatsby-plugin-fix-fouc`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -120,11 +117,8 @@ module.exports = {
         short_name: `Gatsby`,
         start_url: `/`,
         background_color: `#ffffff`,
-        // This will impact how browsers show your PWA/website
-        // https://css-tricks.com/meta-theme-color-and-trickery/
-        // theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
+        icon: `src/images/gatsby-icon.png`
       }
     }
   ]
