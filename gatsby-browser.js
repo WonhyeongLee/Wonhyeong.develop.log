@@ -5,7 +5,9 @@ import * as normalize from "normalize.css"
 import { globalVariables } from "./src/styles/globalVariables"
 import { globalStyles } from "./src/styles/globalStyles"
 // custom typefaces
-import "@fontsource/montserrat/variable.css"
+import "@fontsource/montserrat"
+import "@fontsource/montserrat/700.css"
+import "@fontsource/montserrat/900.css"
 import "@fontsource/merriweather"
 // custom CSS styles
 import "./src/style.css"
