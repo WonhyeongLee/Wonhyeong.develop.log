@@ -1,4 +1,4 @@
-import { css, keyframes } from "@emotion/react"
+import { css, keyframes } from '@emotion/react';
 
 const slideDown = keyframes`
   0% {
@@ -9,7 +9,7 @@ const slideDown = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-`
+`;
 const slideUp = keyframes`
   0%{
     opacity: 1;
@@ -19,7 +19,7 @@ const slideUp = keyframes`
     opacity: 0;
     transform: translateY(-20px);
   }
-`
+`;
 const slideDownAnimation = keyframes`
   0% {
     transform: translateY(-20px);
@@ -27,7 +27,7 @@ const slideDownAnimation = keyframes`
   100% {
     transform: translateY(0);
   }
-`
+`;
 
 const slideUpAnimation = keyframes`
   0% {
@@ -36,16 +36,16 @@ const slideUpAnimation = keyframes`
   100% {
     transform: translateY(-20px);
   }
-`
+`;
 
 // components Style
 export const globalContentsStyle = css`
   margin: var(--spacing-0) auto;
   max-width: var(--maxWidth-wrapper);
-`
+`;
 export const globalMainWrapperStyle = css`
   ${globalContentsStyle}
-`
+`;
 export const globalHeaderStyle = css`
   display: flex;
   justify-content: space-between;
@@ -59,7 +59,7 @@ export const globalHeaderStyle = css`
   transition: top 0.5s ease 0s, opacity 0.5s ease 0s;
   z-index: 1;
   margin-bottom: var(--spacing-6);
-`
+`;
 export const footerStyle = css`
   text-align: center;
   color: var(--color-text);
@@ -69,13 +69,13 @@ export const footerStyle = css`
   > p {
     margin: var(--spacing-1) 0;
   }
-`
+`;
 export const linkStyle = css`
   color: var(--color-text);
-`
+`;
 export const socialIconListStyle = css`
   margin-top: var(--spacing-2);
-`
+`;
 export const socialIconStyle = css`
   color: #7b8493;
   font-size: 2rem;
@@ -84,14 +84,14 @@ export const socialIconStyle = css`
     color: #1a202c;
     transition: color 0.3s;
   }
-`
+`;
 // pages Style
 export const tagListStyle = css`
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   margin-top: var(--spacing-2);
-`
+`;
 // layout의 tagListStyle
 export const tagsListStyle = state => css`
   ${globalContentsStyle}
@@ -104,22 +104,22 @@ export const tagsListStyle = state => css`
   opacity: 0;
   transition: visibility 300ms, opacity 300ms ease-in-out;
 
-  ${state === "entering" &&
+  ${state === 'entering' &&
   css`
     visibility: visible;
     opacity: 0;
     animation: ${slideDown} 0.3s ease-out forwards;
   `}
-  ${state === "entered" &&
+  ${state === 'entered' &&
   css`
     visibility: visible;
     opacity: 1;
   `}
-  ${state === "exiting" &&
+  ${state === 'exiting' &&
   css`
     animation: ${slideUp} 0.2s ease-in-out forwards;
   `}
-`
+`;
 
 export const mainWrapperStyle = css`
   ${globalMainWrapperStyle};
@@ -135,4 +135,4 @@ export const mainWrapperStyle = css`
   article {
     padding-top: var(--spacing-12);
   }
-`
+`;

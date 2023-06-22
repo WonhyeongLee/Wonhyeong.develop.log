@@ -8,14 +8,16 @@
  * @type {import('gatsby').GatsbySSR['onRenderBody']}
  */
 // const Layout = require("./src/components/layout")
-const TagProvider = require("./src/context/TagProvider")
+import React from 'react';
 
-exports.onRenderBody = ({ setHtmlAttributes }) => {
-  setHtmlAttributes({ lang: `en` })
+import TagProvider from './src/context/TagProvider';
+
+export function onRenderBody({ setHtmlAttributes }) {
+  setHtmlAttributes({ lang: `en` });
 }
 
-exports.wrapRootElement = ({ element }) => {
-  return <TagProvider>{element}</TagProvider>
+export function wrapRootElement({ element }) {
+  return <TagProvider>{element}</TagProvider>;
 }
 
 // exports.wrapPageElement = ({ element, props }) => {

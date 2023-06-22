@@ -1,14 +1,15 @@
-import React, { useContext } from "react"
-import { useLocation } from "@reach/router"
-import { Link } from "gatsby"
-import { css } from "@emotion/react"
-import TagContext from "../context/TagContext"
+import { css } from '@emotion/react';
+import { useLocation } from '@reach/router';
+import { Link } from 'gatsby';
+import React, { useContext } from 'react';
+
+import TagContext from '../context/TagContext';
 
 const hoverAndSelectedTagStyle = css`
   font-weight: var(--fontWeight-bold);
   color: #f31010;
   background-color: #e0e0e0;
-`
+`;
 
 const tagStyle = css`
   display: inline-block;
@@ -21,29 +22,29 @@ const tagStyle = css`
   &:hover {
     ${hoverAndSelectedTagStyle}
   }
-`
+`;
 const selectedTagStyle = css`
   ${hoverAndSelectedTagStyle}
-`
+`;
 
 const Tag = ({ tag }) => {
-  const { selectedTags, setSelectedTags } = useContext(TagContext)
-  const location = useLocation()
+  const { selectedTags, setSelectedTags } = useContext(TagContext);
+  const location = useLocation();
 
   return (
     <Link
       to={`/`}
       css={selectedTags.includes(tag) ? [tagStyle, selectedTagStyle] : tagStyle}
       onClick={event => {
-        if (location.pathname === "/") {
-          event.preventDefault()
+        if (location.pathname === '/') {
+          event.preventDefault();
         }
-        setSelectedTags(tag)
+        setSelectedTags(tag);
       }}
     >
       {tag}
     </Link>
-  )
-}
+  );
+};
 
-export default Tag
+export default Tag;

@@ -1,20 +1,21 @@
-import React, { useContext } from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
-import Tag from "./tags"
-import { Transition } from "react-transition-group"
-import TagContext from "../context/TagContext"
+import { Link, useStaticQuery, graphql } from 'gatsby';
+import React, { useContext } from 'react';
+import { Transition } from 'react-transition-group';
 
+import TagContext from '../context/TagContext';
 import {
   globalHeaderStyle,
   mainWrapperStyle,
   footerStyle,
   linkStyle,
-  tagsListStyle,
-} from "../styles/style.js"
+  tagsListStyle
+} from '../styles/style.js';
+
+import Tag from './tags';
 
 const Layout = ({ location, title, children }) => {
-  const [isTagListVisible, setIsTagListVisible] = React.useState(true)
-  const { resetSelectedTags } = useContext(TagContext)
+  const [isTagListVisible, setIsTagListVisible] = React.useState(true);
+  const { resetSelectedTags } = useContext(TagContext);
 
   const data = useStaticQuery(graphql`
     query {
@@ -24,11 +25,11 @@ const Layout = ({ location, title, children }) => {
         }
       }
     }
-  `)
-  const tags = data.allMarkdownRemark.group
-  const rootPath = `${__PATH_PREFIX__}/`
-  const isRootPath = location.pathname === rootPath
-  let header
+  `);
+  const tags = data.allMarkdownRemark.group;
+  const rootPath = `${__PATH_PREFIX__}/`;
+  const isRootPath = location.pathname === rootPath;
+  let header;
 
   if (isRootPath) {
     header = (
@@ -37,13 +38,13 @@ const Layout = ({ location, title, children }) => {
           {title}
         </Link>
       </h1>
-    )
+    );
   } else {
     header = (
       <Link className="header-link-home" to="/" onClick={resetSelectedTags}>
         {title}
       </Link>
-    )
+    );
   }
 
   return (
@@ -58,7 +59,7 @@ const Layout = ({ location, title, children }) => {
       </header>
       <main
         css={mainWrapperStyle}
-        className={isTagListVisible ? "slideDown" : "slideUp"}
+        className={isTagListVisible ? 'slideDown' : 'slideUp'}
       >
         <Transition in={isTagListVisible} timeout={300} unmountOnExit>
           {state => (
@@ -83,7 +84,7 @@ const Layout = ({ location, title, children }) => {
         </p>
       </footer>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

@@ -1,26 +1,27 @@
-import React, { useMemo, useContext } from "react"
-import { Link, graphql } from "gatsby"
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import Tag from "../components/tags"
-import { tagListStyle } from "../styles/style"
-import TagContext from "../context/TagContext"
-import { css } from "@emotion/react"
+import { css } from '@emotion/react';
+import { Link, graphql } from 'gatsby';
+import React, { useMemo, useContext } from 'react';
+
+import Bio from '../components/bio';
+import Layout from '../components/layout';
+import Seo from '../components/seo';
+import Tag from '../components/tags';
+import TagContext from '../context/TagContext';
+import { tagListStyle } from '../styles/style';
 
 const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
-  const { selectedTags } = useContext(TagContext)
+  const siteTitle = data.site.siteMetadata?.title || `Title`;
+  const posts = data.allMarkdownRemark.nodes;
+  const { selectedTags } = useContext(TagContext);
 
   const filteredPosts = useMemo(() => {
-    if (!selectedTags.length || selectedTags.includes("All")) {
-      return posts
+    if (!selectedTags.length || selectedTags.includes('All')) {
+      return posts;
     }
     return posts.filter(post =>
       selectedTags.every(tag => post.frontmatter.tags.includes(tag))
-    )
-  }, [selectedTags])
+    );
+  }, [selectedTags]);
 
   if (posts.length === 0) {
     return (
@@ -32,7 +33,7 @@ const BlogIndex = ({ data, location }) => {
           gatsby-config.js).
         </p>
       </Layout>
-    )
+    );
   }
 
   return (
@@ -42,7 +43,7 @@ const BlogIndex = ({ data, location }) => {
       <hr></hr>
       <ol style={{ listStyle: `none` }}>
         {filteredPosts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
+          const title = post.frontmatter.title || post.fields.slug;
           return (
             <li key={post.fields.slug}>
               <article
@@ -61,7 +62,7 @@ const BlogIndex = ({ data, location }) => {
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
+                      __html: post.frontmatter.description || post.excerpt
                     }}
                     itemProp="description"
                   />
@@ -84,21 +85,21 @@ const BlogIndex = ({ data, location }) => {
               </article>
               <hr />
             </li>
-          )
+          );
         })}
       </ol>
     </Layout>
-  )
-}
+  );
+};
 
-export default BlogIndex
+export default BlogIndex;
 
 /**
  * Head export to define metadata for the page
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="All posts" />
+export const Head = () => <Seo title="All posts" />;
 
 export const pageQuery = graphql`
   {
@@ -126,4 +127,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

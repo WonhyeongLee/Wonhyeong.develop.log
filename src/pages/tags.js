@@ -1,35 +1,34 @@
-import React, { useState } from "react"
-import TagPageTemplete from "../templates/tags"
+import { graphql } from 'gatsby';
+import React, { useState } from 'react';
 
-// Components
-import { graphql } from "gatsby"
-import Seo from "../components/seo"
-import Tag from "../components/tags"
-import Layout from "../components/layout"
+import Layout from '../components/layout';
+import Seo from '../components/seo';
+import Tag from '../components/tags';
+import TagPageTemplete from '../templates/tags';
 
 const TagsPage = ({
   data: {
     allMarkdownRemark: { group },
     site: {
-      siteMetadata: { title },
-    },
+      siteMetadata: { title }
+    }
   },
-  location,
+  location
 }) => {
-  const [selectedTag, setSelectedTag] = useState(null)
+  const [selectedTag, setSelectedTag] = useState(null);
   return (
     <Layout location={location} title={title}>
       <Seo title={title} />
       <div>
         <h1>Tags</h1>
-        <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
+        <ul style={{ listStyle: 'none', margin: '0', padding: '0' }}>
           {group.map(tag => (
             <li
               key={tag.fieldValue}
               style={{
-                display: "inline-block",
-                marginRight: "10px",
-                marginBottom: "10px",
+                display: 'inline-block',
+                marginRight: '10px',
+                marginBottom: '10px'
               }}
             >
               <button onClick={() => setSelectedTag(tag.fieldValue)}>
@@ -41,10 +40,10 @@ const TagsPage = ({
         {selectedTag && <TagPageTemplete tag={selectedTag} />}
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default TagsPage
+export default TagsPage;
 export const pageQuery = graphql`
   query {
     site {
@@ -59,4 +58,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
