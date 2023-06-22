@@ -1,4 +1,4 @@
-import { css } from "@emotion/react"
+import { css } from '@emotion/react';
 
 export const globalStyles = css`
   *,
@@ -172,4 +172,4 @@ ol li {
     margin: 0;
     padding-left: 1.5rem;
   }
-`
+`;

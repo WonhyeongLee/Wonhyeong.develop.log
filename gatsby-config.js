@@ -11,14 +11,14 @@ module.exports = {
   siteMetadata: {
     title: `Wonhyeong's log`,
     author: {
-      name: `이원형`,
+      name: `이원형`
     },
     description: `보고 배운것을 내 것으로 만들기 위한 공간입니다.`,
     siteUrl: `https://www.naver.com`,
     social: {
       github: `https://github.com/WonhyeongLee`,
-      email: `kkwon9607@gmail.com`,
-    },
+      email: `kkwon9607@gmail.com`
+    }
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -26,39 +26,39 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
+        name: `blog`
+      }
     },
     `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
           {
-            resolve: `gatsby-remark-gifs`,
+            resolve: `gatsby-remark-gifs`
           },
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 630,
-            },
+              maxWidth: 630
+            }
           },
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
+              wrapperStyle: `margin-bottom: 1.0725rem`
+            }
           },
-          `gatsby-remark-prismjs`,
-        ],
-      },
+          `gatsby-remark-prismjs`
+        ]
+      }
     },
     `gatsby-plugin-emotion`,
     `gatsby-plugin-fix-fouc`,
@@ -88,9 +88,9 @@ module.exports = {
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ "content:encoded": node.html }],
-                })
-              })
+                  custom_elements: [{ 'content:encoded': node.html }]
+                });
+              });
             },
             query: `{
               allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
@@ -107,11 +107,11 @@ module.exports = {
                 }
               }
             }`,
-            output: "/rss.xml",
-            title: "Gatsby Starter Blog RSS Feed",
-          },
-        ],
-      },
+            output: '/rss.xml',
+            title: 'Gatsby Starter Blog RSS Feed'
+          }
+        ]
+      }
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -124,8 +124,8 @@ module.exports = {
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
-    },
-  ],
-}
+        icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
+      }
+    }
+  ]
+};

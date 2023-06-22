@@ -1,8 +1,8 @@
-import { css } from "@emotion/react"
+import { css } from '@emotion/react';
 
 export const globalVariables = css`
   :root {
-    --maxWidth-none: "none";
+    --maxWidth-none: 'none';
     --maxWidth-xs: 20rem;
     --maxWidth-sm: 24rem;
     --maxWidth-md: 28rem;
@@ -11,9 +11,9 @@ export const globalVariables = css`
     --maxWidth-2xl: 42rem;
     --maxWidth-3xl: 48rem;
     --maxWidth-4xl: 56rem;
-    --maxWidth-full: "100%";
+    --maxWidth-full: '100%';
     --maxWidth-wrapper: var(--maxWidth-3xl);
-    --spacing-px: "1px";
+    --spacing-px: '1px';
     --spacing-0: 0;
     --spacing-1: 0.25rem;
     --spacing-2: 0.5rem;
@@ -28,11 +28,11 @@ export const globalVariables = css`
     --spacing-20: 5rem;
     --spacing-24: 6rem;
     --spacing-32: 8rem;
-    --fontFamily-sans: "Montserrat", system-ui, -apple-system,
-      BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-      "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol", "Noto Color Emoji";
-    --fontFamily-serif: "Merriweather", "Georgia", Cambria, "Times New Roman",
+    --fontFamily-sans: 'Montserrat', system-ui, -apple-system,
+      BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+      'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol', 'Noto Color Emoji';
+    --fontFamily-serif: 'Merriweather', 'Georgia', Cambria, 'Times New Roman',
       Times, serif;
     --font-body: var(--fontFamily-serif);
     --font-heading: var(--fontFamily-sans);
@@ -60,4 +60,4 @@ export const globalVariables = css`
     --color-heading-black: black;
     --color-accent: #d1dce5;
   }
-`
+`;
