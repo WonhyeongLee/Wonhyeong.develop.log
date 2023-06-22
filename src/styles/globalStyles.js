@@ -1,4 +1,4 @@
-import { css } from "@emotion/react"
+import { css } from '@emotion/react';
 
 export const globalStyles = css`
   *,
@@ -175,4 +175,4 @@ ol li {
   a {
     color: inherit;
   }
-`
+`;

@@ -1,9 +1,9 @@
-import React, { createContext } from "react"
+import { createContext } from 'react';
 
 const TagContext = createContext({
-  selectedTags: ["All"],
+  selectedTags: ['All'],
   setSelectedTags: () => {},
-  resetSelectedTags: () => {},
-})
+  resetSelectedTags: () => {}
+});
 
-export default TagContext
+export default TagContext;
