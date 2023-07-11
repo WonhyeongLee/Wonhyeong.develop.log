@@ -1,16 +1,16 @@
-import { Link, graphql } from 'gatsby';
-import * as React from 'react';
+import { Link, graphql, PageProps } from 'gatsby';
 
 import Bio from '../components/bio';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Tag from '../components/tags';
-const BlogPostTemplate = ({
-  data: { previous, next, site, markdownRemark: post },
-  location
-}) => {
-  const siteTitle = site.siteMetadata?.title || `Title`;
 
+const BlogPostTemplate = ({
+  data,
+  location
+}: PageProps<Queries.BlogPostTemplateQuery>) => {
+  const siteTitle = data.site?.siteMetadata?.title || `Title`;
+  const post = data.markdownRemark;
   return (
     <Layout location={location} title={siteTitle}>
       <article
@@ -19,18 +19,18 @@ const BlogPostTemplate = ({
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
-          {post.frontmatter.tags && (
+          <h1 itemProp="headline">{post?.frontmatter?.title}</h1>
+          <p>{post?.frontmatter?.date}</p>
+          {post?.frontmatter?.tags && (
             <div>
-              {post.frontmatter.tags.map(tag => (
-                <Tag key={tag} tag={tag} />
+              {post?.frontmatter?.tags.map(tag => (
+                <Tag key={tag} tag={tag || ''} />
               ))}
             </div>
           )}
         </header>
         <section
-          dangerouslySetInnerHTML={{ __html: post.html }}
+          dangerouslySetInnerHTML={{ __html: post?.html || '' }}
           itemProp="articleBody"
         />
         <hr />
@@ -48,16 +48,16 @@ const BlogPostTemplate = ({
           }}
         >
           <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
+            {data.previous && (
+              <Link to={data.previous?.fields?.slug || ''} rel="prev">
+                ← {data.previous?.frontmatter?.title}
               </Link>
             )}
           </li>
           <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
+            {data.next && (
+              <Link to={data.next?.fields?.slug || ''} rel="next">
+                {data.next?.frontmatter?.title} →
               </Link>
             )}
           </li>
@@ -67,11 +67,12 @@ const BlogPostTemplate = ({
   );
 };
 
-export const Head = ({ data: { markdownRemark: post } }) => {
+export const Head = ({ data }: PageProps<Queries.BlogPostTemplateQuery>) => {
+  const post = data.markdownRemark;
   return (
     <Seo
-      title={post.frontmatter.title}
-      description={post.frontmatter.description || post.excerpt}
+      title={post?.frontmatter?.title || ''}
+      description={post?.frontmatter?.description || post?.excerpt || ''}
     />
   );
 };
@@ -79,7 +80,7 @@ export const Head = ({ data: { markdownRemark: post } }) => {
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostBySlug(
+  query BlogPostTemplate(
     $id: String!
     $previousPostId: String
     $nextPostId: String

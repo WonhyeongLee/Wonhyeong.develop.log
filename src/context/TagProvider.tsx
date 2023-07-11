@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import { FC, useState, ReactNode } from 'react';
 
 import TagContext from './TagContext';
 
-const TagProvider = ({ children }) => {
-  const [selectedTags, setSelectedTags] = useState(['All']);
+interface TagProviderProps {
+  children: ReactNode;
+}
 
-  const handleSetSelectedTag = tag => {
+const TagProvider: FC<TagProviderProps> = ({ children }) => {
+  const [selectedTags, setSelectedTags] = useState<string[]>(['All']);
+
+  const handleSetSelectedTag = (tag: string) => {
     setSelectedTags(prevSelectedTags => {
       if (tag === 'All') {
         return ['All'];

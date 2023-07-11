@@ -1,13 +1,8 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
- */
+import { GatsbyConfig } from 'gatsby';
 
-/**
- * @type {import('gatsby').GatsbyConfig}
- */
-module.exports = {
+import { FeedQueryResult } from './src/types/FeedQueryResult';
+
+const config: GatsbyConfig = {
   siteMetadata: {
     title: `Wonhyeong's log`,
     author: {
@@ -20,6 +15,7 @@ module.exports = {
       email: `kkwon9607@gmail.com`
     }
   },
+  graphqlTypegen: true,
   plugins: [
     `gatsby-plugin-image`,
     `gatsby-plugin-netlify`,
@@ -29,6 +25,14 @@ module.exports = {
       options: {
         name: `blog`,
         path: `${__dirname}/content/blog`
+      }
+    },
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        jsxPragma: `React`, // defaults to "React"
+        allExtensions: true // defaults to false
       }
     },
     `gatsby-transformer-sharp`,
@@ -48,7 +52,6 @@ module.exports = {
           {
             resolve: `gatsby-remark-copy-linked-files`
           },
-
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
@@ -78,7 +81,11 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
+            serialize: ({
+              query: { site, allMarkdownRemark }
+            }: {
+              query: FeedQueryResult;
+            }) => {
               return allMarkdownRemark.nodes.map(node => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
@@ -90,7 +97,7 @@ module.exports = {
               });
             },
             query: `{
-              allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+              allMarkdownRemark(sort: {order: DESC, fields: frontmatter___date}) {
                 nodes {
                   excerpt
                   html
@@ -123,3 +130,5 @@ module.exports = {
     }
   ]
 };
+
+export default config;

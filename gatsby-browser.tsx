@@ -1,8 +1,8 @@
 import { Global, css } from '@emotion/react';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import * as normalize from 'normalize.css';
-import React from 'react';
-// normalize with emotion
+import type { GatsbyBrowser } from 'gatsby';
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+import * as React from 'react';
 
 import TagProvider from './src/context/TagProvider';
 import { globalStyles } from './src/styles/globalStyles';
@@ -22,12 +22,13 @@ import 'prismjs/themes/prism.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
-export const wrapRootElement = ({ element }) => {
+export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
+  element
+}) => {
   return (
     <>
       <Global
         styles={css`
-          ${normalize}
           ${globalVariables}
           ${globalStyles}
         `}

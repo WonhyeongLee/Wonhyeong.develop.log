@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useLocation } from '@reach/router';
 import { Link } from 'gatsby';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import TagContext from '../context/TagContext';
 
@@ -27,7 +27,11 @@ const selectedTagStyle = css`
   ${hoverAndSelectedTagStyle}
 `;
 
-const Tag = ({ tag }) => {
+type TagProps = {
+  tag: string;
+};
+
+const Tag = ({ tag }: TagProps) => {
   const { selectedTags, setSelectedTags } = useContext(TagContext);
   const location = useLocation();
 
