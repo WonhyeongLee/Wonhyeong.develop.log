@@ -1,20 +1,28 @@
-/**
- * Bio component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
- */
-
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useStaticQuery, graphql } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
-import * as React from 'react';
 
-import { socialIconListStyle, socialIconStyle } from '../styles/style';
+import { socialIconListStyle, socialIconStyle } from 'styles/style';
+
+type BioQueryResult = {
+  site: {
+    siteMetadata: {
+      author: {
+        name: string;
+        summary: string;
+      };
+      social: {
+        email: string;
+        github: string;
+      };
+      description: string;
+    };
+  };
+};
 
 const Bio = () => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<BioQueryResult>(graphql`
     query BioQuery {
       site {
         siteMetadata {

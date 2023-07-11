@@ -1,16 +1,16 @@
 import { css } from '@emotion/react';
-import { Link, graphql } from 'gatsby';
-import React, { useMemo, useContext } from 'react';
+import { Link, graphql, PageProps } from 'gatsby';
+import { useMemo, useContext } from 'react';
 
-import Bio from '../components/bio';
-import Layout from '../components/layout';
-import Seo from '../components/seo';
-import Tag from '../components/tags';
-import TagContext from '../context/TagContext';
-import { tagListStyle } from '../styles/style';
+import Bio from 'components/bio';
+import Layout from 'components/layout';
+import Seo from 'components/seo';
+import Tag from 'components/tags';
+import TagContext from 'context/TagContext';
+import { tagListStyle } from 'styles/style';
 
-const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`;
+const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
+  const siteTitle = data.site?.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
   const { selectedTags } = useContext(TagContext);
 
@@ -19,9 +19,9 @@ const BlogIndex = ({ data, location }) => {
       return posts;
     }
     return posts.filter(post =>
-      selectedTags.every(tag => post.frontmatter.tags.includes(tag))
+      selectedTags.every(tag => post.frontmatter?.tags?.includes(tag))
     );
-  }, [selectedTags]);
+  }, [posts, selectedTags]);
 
   if (posts.length === 0) {
     return (
@@ -43,9 +43,9 @@ const BlogIndex = ({ data, location }) => {
       <hr></hr>
       <ol style={{ listStyle: `none` }}>
         {filteredPosts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug;
+          const title = post.frontmatter?.title || post.fields?.slug;
           return (
-            <li key={post.fields.slug}>
+            <li key={post.fields?.slug}>
               <article
                 className="post-list-item"
                 itemScope
@@ -53,16 +53,17 @@ const BlogIndex = ({ data, location }) => {
               >
                 <header>
                   <h2>
-                    <Link to={post.fields.slug} itemProp="url">
+                    <Link to={post.fields?.slug || ''} itemProp="url">
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
-                  <small>{post.frontmatter.date}</small>
+                  <small>{post.frontmatter?.date}</small>
                 </header>
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt
+                      __html:
+                        post.frontmatter?.description || post.excerpt || ''
                     }}
                     itemProp="description"
                   />
@@ -72,13 +73,15 @@ const BlogIndex = ({ data, location }) => {
                     margin-left: -32px;
                   `}
                 >
-                  {post.frontmatter.tags && (
+                  {post.frontmatter?.tags && (
                     <ul css={tagListStyle}>
-                      {post.frontmatter.tags.map(tag => (
-                        <li key={tag}>
-                          <Tag key={tag} tag={tag} />
-                        </li>
-                      ))}
+                      {post.frontmatter.tags
+                        .filter((tag): tag is string => tag !== null)
+                        .map(tag => (
+                          <li key={tag}>
+                            <Tag key={tag} tag={tag} />
+                          </li>
+                        ))}
                     </ul>
                   )}
                 </footer>
@@ -102,7 +105,7 @@ export default BlogIndex;
 export const Head = () => <Seo title="All posts" />;
 
 export const pageQuery = graphql`
-  {
+  query BlogIndex {
     site {
       siteMetadata {
         title
