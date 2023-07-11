@@ -1,7 +1,8 @@
 import { Link, useStaticQuery, graphql } from 'gatsby';
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { Transition } from 'react-transition-group';
 
+import Tag from './tags';
 import TagContext from '../context/TagContext';
 import {
   globalHeaderStyle,
@@ -9,16 +10,28 @@ import {
   footerStyle,
   linkStyle,
   tagsListStyle
-} from '../styles/style.js';
+} from 'styles/style';
 
-import Tag from './tags';
+type LayoutProps = {
+  location: Location;
+  title: string;
+  children: ReactNode;
+};
 
-const Layout = ({ location, title, children }) => {
+type TagsQueryResult = {
+  allMarkdownRemark: {
+    group: {
+      fieldValue: string;
+    }[];
+  };
+};
+
+const Layout = ({ location, title, children }: LayoutProps) => {
   const [isTagListVisible, setIsTagListVisible] = React.useState(true);
   const { resetSelectedTags } = useContext(TagContext);
 
-  const data = useStaticQuery(graphql`
-    query {
+  const data: TagsQueryResult = useStaticQuery(graphql`
+    query TagsQuery {
       allMarkdownRemark(limit: 2000) {
         group(field: frontmatter___tags) {
           fieldValue

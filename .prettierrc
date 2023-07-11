@@ -4,5 +4,6 @@
   "bracketSpacing": true,
   "semi": true,
   "tabWidth": 2,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "printWidth": 80
 }
