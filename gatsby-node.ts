@@ -1,12 +1,11 @@
-import path from 'path';
-
 import { GatsbyNode, CreateNodeArgs, CreateWebpackConfigArgs } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
-import _ from 'lodash';
+// import _ from 'lodash';
+import path from 'path';
 
 // Define the template for blog post
 const blogPost = path.resolve(`src/templates/blog-post.tsx`);
-const TagPageTemplete = path.resolve(`src/templates/tags.tsx`);
+// const TagPageTemplete = path.resolve(`src/templates/tags.tsx`);
 
 exports.onCreateWebpackConfig = ({
   getConfig,
@@ -31,34 +30,6 @@ exports.onCreateWebpackConfig = ({
     }
   });
 };
-
-interface Data {
-  allMarkdownRemark: {
-    nodes: {
-      id: string;
-      fields: {
-        slug: string;
-      };
-    }[];
-  };
-  postsRemark: {
-    edges: {
-      node: {
-        fields: {
-          slug: string;
-        };
-        frontmatter: {
-          tags: string[];
-        };
-      };
-    }[];
-  };
-  tagsGroup: {
-    group: {
-      fieldValue: string;
-    }[];
-  };
-}
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({
   node,
@@ -86,8 +57,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const { createPage } = actions;
 
   // Get all markdown blog posts sorted by date
-  const result = await graphql<Data>(`
-    {
+  const result = await graphql<Queries.BlogPostsDataQuery>(`
+    query BlogPostsData {
       allMarkdownRemark(sort: { frontmatter: { date: ASC } }, limit: 1000) {
         nodes {
           id
@@ -140,7 +111,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
         index === posts.length - 1 ? null : posts[index + 1].id;
 
       createPage({
-        path: post.fields.slug,
+        path: post.fields?.slug || '',
         component: blogPost,
         context: {
           id: post.id,
@@ -150,16 +121,60 @@ export const createPages: GatsbyNode['createPages'] = async ({
       });
     });
   }
-  const tags = result.data?.tagsGroup.group;
-  if (tags) {
-    tags.forEach(tag => {
-      createPage({
-        path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
-        component: TagPageTemplete,
-        context: {
-          tag: tag.fieldValue
-        }
-      });
-    });
-  }
+  // const tags = result.data?.tagsGroup.group;
+  // if (tags) {
+  //   tags.forEach(tag => {
+  //     createPage({
+  //       path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
+  //       component: TagPageTemplete,
+  //       context: {
+  //         tag: tag.fieldValue
+  //       }
+  //     });
+  //   });
+  // }
 };
+
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] =
+  ({ actions }) => {
+    const { createTypes } = actions;
+
+    // Explicitly define the siteMetadata {} object
+    // This way those will always be defined even if removed from gatsby-config.js
+
+    // Also explicitly define the Markdown frontmatter
+    // This way the "MarkdownRemark" queries will return `null` even when no
+    // blog posts are stored inside "content/blog" instead of returning an error
+    createTypes(`
+    type SiteSiteMetadata {
+      author: Author
+      siteUrl: String
+      social: Social
+    }
+
+    type Author {
+      name: String
+      summary: String
+    }
+
+    type Social {
+      github: String
+      email: String
+    }
+
+    type MarkdownRemark implements Node {
+      frontmatter: Frontmatter
+      fields: Fields
+    }
+
+    type Frontmatter {
+      title: String
+      description: String
+      date: Date @dateformat
+    }
+
+    type Fields {
+      slug: String
+    }
+  `);
+  };

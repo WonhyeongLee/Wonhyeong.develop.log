@@ -15,12 +15,7 @@ const config: GatsbyConfig = {
       email: `kkwon9607@gmail.com`
     }
   },
-  graphqlTypegen: {
-    typesOutputPath: `gatsby-types.d.ts`,
-    generateOnBuild: false,
-    documentSearchPaths: [`./gatsby-node.ts`, `./plugins/**/gatsby-node.ts`]
-    // Other options...
-  },
+  graphqlTypegen: true,
   plugins: [
     `gatsby-plugin-image`,
     `gatsby-plugin-netlify`,
@@ -30,6 +25,14 @@ const config: GatsbyConfig = {
       options: {
         name: `blog`,
         path: `${__dirname}/content/blog`
+      }
+    },
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        jsxPragma: `React`, // defaults to "React"
+        allExtensions: true // defaults to false
       }
     },
     `gatsby-transformer-sharp`,

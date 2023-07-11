@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES6",
     "lib": ["dom", "esnext"],
     "module": "commonjs",
     "allowJs": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "strict": true,
-    // "allowUmdGlobalAccess": true,
+    "allowUmdGlobalAccess": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -33,5 +33,5 @@
     "./plugins/**/*",
     "./src/gatsby-types.d.ts"
   ],
-  "exclude": ["node_modules", "public", ".cache"]
+  "exclude": ["node_modules"]
 }
