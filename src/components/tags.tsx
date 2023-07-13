@@ -1,9 +1,10 @@
 import { css } from '@emotion/react';
 import { useLocation } from '@reach/router';
 import { Link } from 'gatsby';
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import TagContext from '../context/TagContext';
+import { RootState } from '../app/store';
+import { selectTag } from '../features/tags/tagsSlice';
 
 const hoverAndSelectedTagStyle = css`
   font-weight: var(--fontWeight-bold);
@@ -32,7 +33,8 @@ type TagProps = {
 };
 
 const Tag = ({ tag }: TagProps) => {
-  const { selectedTags, setSelectedTags } = useContext(TagContext);
+  const selectedTags = useSelector((state: RootState) => state.tags);
+  const dispatch = useDispatch();
   const location = useLocation();
 
   return (
@@ -43,7 +45,8 @@ const Tag = ({ tag }: TagProps) => {
         if (location.pathname === '/') {
           event.preventDefault();
         }
-        setSelectedTags(tag);
+        // setSelectedTags(tag);
+        dispatch(selectTag(tag));
       }}
     >
       {tag}
