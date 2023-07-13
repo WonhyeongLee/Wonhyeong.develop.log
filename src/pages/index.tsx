@@ -1,18 +1,19 @@
 import { css } from '@emotion/react';
+import { RootState } from 'app/store';
 import { Link, graphql, PageProps } from 'gatsby';
-import { useMemo, useContext } from 'react';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import Bio from 'components/bio';
 import Layout from 'components/layout';
 import Seo from 'components/seo';
 import Tag from 'components/tags';
-import TagContext from 'context/TagContext';
 import { tagListStyle } from 'styles/style';
 
 const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
-  const { selectedTags } = useContext(TagContext);
+  const selectedTags = useSelector((state: RootState) => state.tags);
 
   const filteredPosts = useMemo(() => {
     if (!selectedTags.length || selectedTags.includes('All')) {
