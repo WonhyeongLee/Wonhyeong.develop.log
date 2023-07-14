@@ -3,8 +3,9 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import type { GatsbyBrowser } from 'gatsby';
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 import * as React from 'react';
+import { Provider } from 'react-redux';
 
-import TagProvider from './src/context/TagProvider';
+import store from './src/app/store';
 import { globalStyles } from './src/styles/globalStyles';
 import { globalVariables } from './src/styles/globalVariables';
 // custom typefaces
@@ -33,7 +34,7 @@ export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
           ${globalStyles}
         `}
       />
-      <TagProvider>{element}</TagProvider>
+      <Provider store={store}>{element}</Provider>;
     </>
   );
 };
