@@ -10,5 +10,5 @@ export const postListStyle = css`
 `;
 
 export const footerStyle = css`
-  margin-left: -32px;
+  margin-left: -5px;
 `;
