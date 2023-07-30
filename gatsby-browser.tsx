@@ -9,10 +9,9 @@ import store from './src/app/store';
 import { globalStyles } from './src/styles/globalStyles';
 import { globalVariables } from './src/styles/globalVariables';
 // custom typefaces
-import '@fontsource/montserrat';
-import '@fontsource/montserrat/700.css';
-import '@fontsource/montserrat/900.css';
-import '@fontsource/merriweather';
+import '@fontsource/noto-sans-kr';
+import '@fontsource/noto-sans-kr/700.css';
+import '@fontsource/noto-sans-kr/900.css';
 // custom CSS styles
 import './src/style.css';
 // Highlighting for code blocks
