@@ -1,14 +1,13 @@
-import { css } from '@emotion/react';
 import { RootState } from 'app/store';
 import { Link, graphql, PageProps } from 'gatsby';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
+import { postTagsListStyle, postListStyle, footerStyle } from './styles';
 import Bio from 'components/bio';
 import Layout from 'components/layout';
 import Seo from 'components/seo';
 import Tag from 'components/tags';
-import { tagListStyle } from 'styles/style';
 
 const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
@@ -47,8 +46,8 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
           const title = post.frontmatter?.title || post.fields?.slug;
           return (
             <li key={post.fields?.slug}>
-              <article
-                className="post-list-item"
+              <section
+                css={postListStyle}
                 itemScope
                 itemType="http://schema.org/Article"
               >
@@ -69,24 +68,20 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
                     itemProp="description"
                   />
                 </section>
-                <footer
-                  css={css`
-                    margin-left: -32px;
-                  `}
-                >
+                <footer css={footerStyle}>
                   {post.frontmatter?.tags && (
-                    <ul css={tagListStyle}>
+                    <ul css={postTagsListStyle} role="list">
                       {post.frontmatter.tags
                         .filter((tag): tag is string => tag !== null)
                         .map(tag => (
-                          <li key={tag}>
+                          <li key={tag} role="list">
                             <Tag key={tag} tag={tag} />
                           </li>
                         ))}
                     </ul>
                   )}
                 </footer>
-              </article>
+              </section>
               <hr />
             </li>
           );
