@@ -1,5 +1,6 @@
 import { Link, graphql, PageProps } from 'gatsby';
 
+import { blogPostNavStyle, navBoxStyle } from './styles';
 import Bio from '../components/bio';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
@@ -38,27 +39,26 @@ const BlogPostTemplate = ({
           <Bio />
         </footer>
       </article>
-      <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`
-          }}
-        >
+      <nav css={blogPostNavStyle}>
+        <ul>
           <li>
             {data.previous && (
-              <Link to={data.previous?.fields?.slug || ''} rel="prev">
-                ← {data.previous?.frontmatter?.title}
-              </Link>
+              <div css={navBoxStyle}>
+                <span>이전 게시물</span>
+                <Link to={data.previous?.fields?.slug || ''} rel="prev">
+                  ← {data.previous?.frontmatter?.title}
+                </Link>
+              </div>
             )}
           </li>
           <li>
             {data.next && (
-              <Link to={data.next?.fields?.slug || ''} rel="next">
-                {data.next?.frontmatter?.title} →
-              </Link>
+              <div css={navBoxStyle}>
+                <span>다음 게시물</span>
+                <Link to={data.next?.fields?.slug || ''} rel="next">
+                  {data.next?.frontmatter?.title} →
+                </Link>
+              </div>
             )}
           </li>
         </ul>
