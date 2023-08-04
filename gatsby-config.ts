@@ -63,6 +63,13 @@ const config: GatsbyConfig = {
       }
     },
     `gatsby-plugin-emotion`,
+    {
+      resolve: `gatsby-plugin-page-creator`,
+      options: {
+        path: `${__dirname}/src/pages`,
+        ignore: [`styles.ts`]
+      }
+    },
     `gatsby-plugin-fix-fouc`,
     {
       resolve: `gatsby-plugin-feed`,

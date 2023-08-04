@@ -163,16 +163,6 @@ export const globalStyles = css`
     padding: var(--spacing-0);
   }
 
-  ul,
-  ol {
-    margin-left: var(--spacing-0);
-    margin-right: var(--spacing-0);
-    padding: var(--spacing-0);
-    /* margin-bottom: var(--spacing-8); */
-    list-style-position: outside;
-    list-style-image: none;
-  }
-
   /* ul li,
 ol li {
   padding-left: var(--spacing-0);
@@ -238,7 +228,7 @@ ol li {
   ol,
   ul {
     margin: 0;
-    padding-left: 1.5rem;
+    padding: 0;
   }
   a {
     color: inherit;

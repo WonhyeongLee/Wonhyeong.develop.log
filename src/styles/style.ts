@@ -85,20 +85,12 @@ export const socialIconStyle = css`
     transition: color 0.3s;
   }
 `;
-// pages Style
-export const tagListStyle = css`
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin-top: var(--spacing-2);
-`;
 // layout의 tagListStyle
-export const tagsListStyle = state => css`
+export const tagsListStyle = (state: string) => css`
   ${globalContentsStyle}
   position: relative;
   flex-wrap: wrap;
   background: #f4f4f4;
-  margin: 20px 0;
   padding: 10px 20px;
   visibility: hidden;
   opacity: 0;

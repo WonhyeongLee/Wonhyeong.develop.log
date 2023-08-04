@@ -14,7 +14,7 @@ const hoverAndSelectedTagStyle = css`
 
 const tagStyle = css`
   display: inline-block;
-  margin: 0 5px;
+  margin: 5px 5px;
   padding: 5px 10px;
   background-color: #dee2e6;
   font-size: 14px;
