@@ -2,3 +2,13 @@ gatsby-browser.js
 gatsby-config.js
 gatsby-node.js
 gatsby-ssr.js
+packages/*/*.js
+**/coverage/**
+**/node_modules/**
+bin/
+packages/*/dist/**
+packages/*/lib/**
+packages/*/scripts/**
+**/dist/*
+**/public/*
+**/*.d.ts
