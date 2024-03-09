@@ -6,34 +6,55 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: `Wonhyeong's log`,
     author: {
-      name: `이원형`
+      name: `이원형`,
     },
-    description: `보고 배운것을 내 것으로 만들기 위한 공간입니다.`,
-    siteUrl: `https://www.naver.com`,
+    description: `기록하기 위한 공간`,
+    siteUrl: `https://wonhyeong.netlify.app/`,
     social: {
       github: `https://github.com/WonhyeongLee`,
-      email: `kkwon9607@gmail.com`
-    }
+      email: `kkwon9607@gmail.com`,
+    },
   },
   graphqlTypegen: true,
   plugins: [
     `gatsby-plugin-image`,
-    `gatsby-plugin-netlify`,
     `gatsby-plugin-sharp`,
+    'gatsby-plugin-mdx',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
-        path: `${__dirname}/content/blog`
-      }
+        path: `${__dirname}/content/blog`,
+        extensions: [`.mdx`, `.md`],
+      },
     },
     {
       resolve: `gatsby-plugin-typescript`,
       options: {
         isTSX: true, // defaults to false
         jsxPragma: `React`, // defaults to "React"
-        allExtensions: true // defaults to false
-      }
+        allExtensions: true, // defaults to false
+      },
+    },
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@src': 'src',
+          '@app': 'src/app',
+          '@components': 'src/components',
+          '@context': 'src/context',
+          '@features': 'src/features',
+          '@images': 'src/images',
+          '@layouts': 'src/layouts',
+          '@pages': 'src/pages',
+          '@styles': 'src/styles',
+          '@templates': 'src/templates',
+          '@types': 'src/types',
+          '@posts': 'content/posts',
+        },
+        extensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+      },
     },
     `gatsby-transformer-sharp`,
     {
@@ -43,32 +64,32 @@ const config: GatsbyConfig = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 630
-            }
+              maxWidth: 630,
+            },
           },
           {
-            resolve: `gatsby-remark-gifs`
+            resolve: `gatsby-remark-gifs`,
           },
           {
-            resolve: `gatsby-remark-copy-linked-files`
+            resolve: `gatsby-remark-copy-linked-files`,
           },
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`
-            }
+              wrapperStyle: `margin-bottom: 1.0725rem`,
+            },
           },
-          `gatsby-remark-prismjs`
-        ]
-      }
+          `gatsby-remark-prismjs`,
+        ],
+      },
     },
     `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-page-creator`,
       options: {
         path: `${__dirname}/src/pages`,
-        ignore: [`styles.ts`]
-      }
+        ignore: [`styles.ts`],
+      },
     },
     `gatsby-plugin-fix-fouc`,
     {
@@ -89,7 +110,7 @@ const config: GatsbyConfig = {
         feeds: [
           {
             serialize: ({
-              query: { site, allMarkdownRemark }
+              query: { site, allMarkdownRemark },
             }: {
               query: FeedQueryResult;
             }) => {
@@ -99,7 +120,7 @@ const config: GatsbyConfig = {
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ 'content:encoded': node.html }]
+                  custom_elements: [{ 'content:encoded': node.html }],
                 });
               });
             },
@@ -119,10 +140,10 @@ const config: GatsbyConfig = {
               }
             }`,
             output: '/rss.xml',
-            title: 'Gatsby Starter Blog RSS Feed'
-          }
-        ]
-      }
+            title: 'Gatsby Starter Blog RSS Feed',
+          },
+        ],
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -132,10 +153,10 @@ const config: GatsbyConfig = {
         start_url: `/`,
         background_color: `#ffffff`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`
-      }
-    }
-  ]
+        icon: `src/images/gatsby-icon.png`,
+      },
+    },
+  ],
 };
 
 export default config;
