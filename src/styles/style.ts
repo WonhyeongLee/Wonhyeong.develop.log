@@ -1,4 +1,4 @@
-import { css, keyframes } from '@emotion/react';
+import { css, keyframes, SerializedStyles } from '@emotion/react';
 
 const slideDown = keyframes`
   0% {
@@ -56,7 +56,9 @@ export const globalHeaderStyle = css`
   box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 8px;
   backdrop-filter: blur(5px);
   opacity: 1;
-  transition: top 0.5s ease 0s, opacity 0.5s ease 0s;
+  transition:
+    top 0.5s ease 0s,
+    opacity 0.5s ease 0s;
   z-index: 1;
   margin-bottom: var(--spacing-6);
 `;
@@ -86,7 +88,7 @@ export const socialIconStyle = css`
   }
 `;
 // layout의 tagListStyle
-export const tagsListStyle = (state: string) => css`
+export const tagsListStyle = (state: string): SerializedStyles => css`
   ${globalContentsStyle}
   position: relative;
   flex-wrap: wrap;
@@ -94,7 +96,9 @@ export const tagsListStyle = (state: string) => css`
   padding: 10px 20px;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 300ms, opacity 300ms ease-in-out;
+  transition:
+    visibility 300ms,
+    opacity 300ms ease-in-out;
 
   ${state === 'entering' &&
   css`

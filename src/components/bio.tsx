@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useStaticQuery, graphql } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
-import { socialIconListStyle, socialIconStyle } from 'styles/style';
+import { socialIconListStyle, socialIconStyle } from '@styles/style';
 
 type BioQueryResult = {
   site: {
@@ -21,7 +21,7 @@ type BioQueryResult = {
   };
 };
 
-const Bio = () => {
+const Bio = (): JSX.Element => {
   const data = useStaticQuery<BioQueryResult>(graphql`
     query BioQuery {
       site {

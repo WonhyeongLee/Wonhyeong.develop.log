@@ -5,8 +5,8 @@ import Seo from '../components/seo';
 
 const NotFoundPage = ({
   data,
-  location
-}: PageProps<Queries.NotFoundPageQuery>) => {
+  location,
+}: PageProps<Queries.NotFoundPageQuery>): JSX.Element => {
   const siteTitle = data.site?.siteMetadata?.title;
 
   return (
@@ -17,7 +17,7 @@ const NotFoundPage = ({
   );
 };
 
-export const Head = () => <Seo title="404: Not Found" />;
+export const Head = (): JSX.Element => <Seo title="404: Not Found" />;
 
 export default NotFoundPage;
 

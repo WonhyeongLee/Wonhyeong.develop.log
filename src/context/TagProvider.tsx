@@ -35,7 +35,7 @@ const TagProvider: FC<TagProviderProps> = ({ children }) => {
       value={{
         selectedTags,
         setSelectedTags: handleSetSelectedTag,
-        resetSelectedTags
+        resetSelectedTags,
       }}
     >
       {children}

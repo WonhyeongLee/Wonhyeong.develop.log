@@ -8,8 +8,8 @@ import Tag from '../components/tags';
 
 const BlogPostTemplate = ({
   data,
-  location
-}: PageProps<Queries.BlogPostTemplateQuery>) => {
+  location,
+}: PageProps<Queries.BlogPostTemplateQuery>): JSX.Element => {
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
   const post = data.markdownRemark;
   return (
@@ -67,7 +67,9 @@ const BlogPostTemplate = ({
   );
 };
 
-export const Head = ({ data }: PageProps<Queries.BlogPostTemplateQuery>) => {
+export const Head = ({
+  data,
+}: PageProps<Queries.BlogPostTemplateQuery>): JSX.Element => {
   const post = data.markdownRemark;
   return (
     <Seo

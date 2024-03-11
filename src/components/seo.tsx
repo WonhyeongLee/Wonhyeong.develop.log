@@ -1,5 +1,6 @@
-import { useStaticQuery, graphql } from 'gatsby';
 import * as React from 'react';
+
+import { useStaticQuery, graphql } from 'gatsby';
 
 interface SeoProps {
   description?: string;
@@ -18,19 +19,17 @@ interface StaticQueryResult {
   };
 }
 
-const Seo = ({ description, title, children }: SeoProps) => {
-  const { site }: StaticQueryResult = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-          }
+const Seo = ({ description, title, children }: SeoProps): JSX.Element => {
+  const { site }: StaticQueryResult = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
         }
       }
-    `
-  );
+    }
+  `);
 
   const metaDescription = description || site.siteMetadata.description;
   const defaultTitle = site.siteMetadata?.title;

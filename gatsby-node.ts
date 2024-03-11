@@ -1,7 +1,8 @@
+import path from 'path';
+
 import { GatsbyNode, CreateNodeArgs, CreateWebpackConfigArgs } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 // import _ from 'lodash';
-import path from 'path';
 
 // Define the template for blog post
 const blogPost = path.resolve(`src/templates/blog-post.tsx`);
@@ -9,7 +10,7 @@ const blogPost = path.resolve(`src/templates/blog-post.tsx`);
 
 exports.onCreateWebpackConfig = ({
   getConfig,
-  actions
+  actions,
 }: CreateWebpackConfigArgs) => {
   const output = getConfig().output || {};
 
@@ -25,16 +26,16 @@ exports.onCreateWebpackConfig = ({
         pages: path.resolve(__dirname, 'src/pages'),
         templates: path.resolve(__dirname, 'src/templates'),
         context: path.resolve(__dirname, 'src/context'),
-        images: path.resolve(__dirname, 'src/images')
-      }
-    }
+        images: path.resolve(__dirname, 'src/images'),
+      },
+    },
   });
 };
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({
   node,
   actions,
-  getNode
+  getNode,
 }: CreateNodeArgs) => {
   const { createNodeField } = actions;
 
@@ -44,7 +45,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({
     createNodeField({
       name: `slug`,
       node,
-      value
+      value,
     });
   }
 };
@@ -52,7 +53,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({
 export const createPages: GatsbyNode['createPages'] = async ({
   graphql,
   actions,
-  reporter
+  reporter,
 }) => {
   const { createPage } = actions;
 
@@ -116,8 +117,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
         context: {
           id: post.id,
           previousPostId,
-          nextPostId
-        }
+          nextPostId,
+        },
       });
     });
   }

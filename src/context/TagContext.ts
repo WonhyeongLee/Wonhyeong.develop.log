@@ -12,7 +12,7 @@ const initialContext: TagContextType = {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setSelectedTags: () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  resetSelectedTags: () => {}
+  resetSelectedTags: () => {},
 };
 
 const TagContext = createContext<TagContextType>(initialContext);

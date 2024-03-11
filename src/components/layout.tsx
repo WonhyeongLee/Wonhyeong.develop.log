@@ -1,16 +1,17 @@
+import { ReactNode, useContext, useState } from 'react';
+
 import { Link, useStaticQuery, graphql } from 'gatsby';
-import React, { ReactNode, useContext } from 'react';
 import { Transition } from 'react-transition-group';
 
-import Tag from './tags';
-import TagContext from '../context/TagContext';
+import Tag from '@components/tags';
+import TagContext from '@context/TagContext';
 import {
   globalHeaderStyle,
   mainWrapperStyle,
   footerStyle,
   linkStyle,
-  tagsListStyle
-} from 'styles/style';
+  tagsListStyle,
+} from '@styles/style';
 
 type LayoutProps = {
   location: Location;
@@ -26,8 +27,8 @@ type TagsQueryResult = {
   };
 };
 
-const Layout = ({ location, title, children }: LayoutProps) => {
-  const [isTagListVisible, setIsTagListVisible] = React.useState(true);
+const Layout = ({ location, title, children }: LayoutProps): JSX.Element => {
+  const [isTagListVisible, setIsTagListVisible] = useState(true);
   const { resetSelectedTags } = useContext(TagContext);
 
   const data: TagsQueryResult = useStaticQuery(graphql`

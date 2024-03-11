@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type TagsState = string[];
-
 const tagsSlice = createSlice({
   name: 'tags',
   initialState: ['All'] as TagsState,
@@ -18,8 +17,8 @@ const tagsSlice = createSlice({
         ? [action.payload]
         : [...state, action.payload];
     },
-    resetTags: () => ['All']
-  }
+    resetTags: () => ['All'],
+  },
 });
 
 export const { selectTag, resetTags } = tagsSlice.actions;

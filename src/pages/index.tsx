@@ -1,15 +1,20 @@
-import { RootState } from 'app/store';
-import { Link, graphql, PageProps } from 'gatsby';
 import { useMemo } from 'react';
+
+import { Link, graphql, PageProps } from 'gatsby';
 import { useSelector } from 'react-redux';
 
 import { postTagsListStyle, postListStyle, footerStyle } from './styles';
-import Bio from 'components/bio';
-import Layout from 'components/layout';
-import Seo from 'components/seo';
-import Tag from 'components/tags';
 
-const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
+import { RootState } from '@app/rootReducer';
+import Bio from '@components/bio';
+import Layout from '@components/layout';
+import Seo from '@components/seo';
+import Tag from '@components/tags';
+
+const BlogIndex = ({
+  data,
+  location,
+}: PageProps<Queries.BlogIndexQuery>): JSX.Element => {
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
   const selectedTags = useSelector((state: RootState) => state.tags);
@@ -63,7 +68,7 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>) => {
                   <p
                     dangerouslySetInnerHTML={{
                       __html:
-                        post.frontmatter?.description || post.excerpt || ''
+                        post.frontmatter?.description || post.excerpt || '',
                     }}
                     itemProp="description"
                   />
@@ -98,7 +103,7 @@ export default BlogIndex;
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="All posts" />;
+export const Head = (): JSX.Element => <Seo title="All posts" />;
 
 export const pageQuery = graphql`
   query BlogIndex {
