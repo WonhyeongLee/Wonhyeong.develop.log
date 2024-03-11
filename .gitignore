@@ -70,3 +70,5 @@ yarn-error.log
 
 # Types
 src/gatsby-types.d.ts
+
+settings.json
