@@ -28,6 +28,7 @@
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-plugin-typegen": "^3.1.0",
     "gatsby-plugin-typescript": "^5.13.1",
+    "gatsby-remark-classes": "^1.0.2",
     "gatsby-remark-copy-linked-files": "^6.13.1",
     "gatsby-remark-gifs": "^1.2.0",
     "gatsby-remark-images": "^7.13.1",
@@ -36,12 +37,15 @@
     "gatsby-source-filesystem": "^5.13.1",
     "gatsby-transformer-remark": "^6.13.1",
     "gatsby-transformer-sharp": "^5.13.1",
+    "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.0",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.4.5",
+    "unist-util-select": "^2.0.2",
+    "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
