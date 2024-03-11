@@ -1,4 +1,5 @@
 import { GatsbyConfig } from 'gatsby';
+import _ from 'lodash';
 
 import { FeedQueryResult } from './src/types/FeedQueryResult';
 
@@ -19,14 +20,26 @@ const config: GatsbyConfig = {
   jsxRuntime: 'automatic',
   plugins: [
     `gatsby-plugin-image`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/content/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/content/blog`,
+      },
+    },
     `gatsby-plugin-sharp`,
-    'gatsby-plugin-mdx',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
         path: `${__dirname}/content/blog`,
-        extensions: [`.mdx`, `.md`],
       },
     },
     {
@@ -63,9 +76,19 @@ const config: GatsbyConfig = {
       options: {
         plugins: [
           {
+            resolve: `gatsby-remark-classes`,
+            options: {
+              classMap: {
+                paragraph: 'para',
+              },
+            },
+          },
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630,
+              wrapperStyle: (fluidResult: { aspectRatio: any }) =>
+                `flex:${_.round(fluidResult.aspectRatio, 2)};`,
             },
           },
           {
@@ -81,6 +104,28 @@ const config: GatsbyConfig = {
             },
           },
           `gatsby-remark-prismjs`,
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 630,
+            },
+          },
+          {
+            resolve: `gatsby-remark-classes`,
+            options: {
+              classMap: {
+                paragraph: 'para',
+              },
+            },
+          },
         ],
       },
     },
