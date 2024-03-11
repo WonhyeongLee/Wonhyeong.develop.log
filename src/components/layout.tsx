@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import { Transition } from 'react-transition-group';
