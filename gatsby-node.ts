@@ -18,15 +18,17 @@ exports.onCreateWebpackConfig = ({
     output,
     resolve: {
       alias: {
-        components: path.resolve(__dirname, 'src/components'),
-        utils: path.resolve(__dirname, 'src/utils'),
-        hooks: path.resolve(__dirname, 'src/hooks'),
-        types: path.resolve(__dirname, 'src/types'),
-        styles: path.resolve(__dirname, 'src/styles'),
-        pages: path.resolve(__dirname, 'src/pages'),
-        templates: path.resolve(__dirname, 'src/templates'),
-        context: path.resolve(__dirname, 'src/context'),
-        images: path.resolve(__dirname, 'src/images'),
+        '@src': path.resolve(__dirname, 'src'),
+        '@app': path.resolve(__dirname, 'src/app'),
+        '@components': path.resolve(__dirname, 'src/components'),
+        '@context': path.resolve(__dirname, 'src/context'),
+        '@features': path.resolve(__dirname, 'src/features'),
+        '@images': path.resolve(__dirname, 'src/images'),
+        '@layouts': path.resolve(__dirname, 'src/layouts'),
+        '@pages': path.resolve(__dirname, 'src/pages'),
+        '@styles': path.resolve(__dirname, 'src/styles'),
+        '@templates': path.resolve(__dirname, 'src/templates'),
+        '@types': path.resolve(__dirname, 'src/types'),
       },
     },
   });
@@ -166,12 +168,14 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
     type MarkdownRemark implements Node {
       frontmatter: Frontmatter
       fields: Fields
+      html: String
     }
 
     type Frontmatter {
       title: String
       description: String
       date: Date @dateformat
+      tags: [String]
     }
 
     type Fields {
