@@ -24,3 +24,32 @@ export const navBoxStyle = css`
   cursor: pointer;
   transition: background-color 0.3s ease 0s;
 `;
+
+export const articleBodyStyle = css`
+  p:has(> span.gatsby-resp-image-wrapper) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+  }
+  .para .gatsby-resp-image-wrapper {
+    flex: 1 1 calc(50% - var(--spacing-4));
+    max-width: calc(
+      50% - var(--spacing-4)
+    ); /* 최대 너비 설정으로 이미지가 너무 커지는 것을 방지 */
+    display: block;
+    position: relative;
+  }
+
+  .para .gatsby-resp-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .para .gatsby-resp-image-image {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+`;

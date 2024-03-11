@@ -1,6 +1,6 @@
 import { Link, graphql, PageProps } from 'gatsby';
 
-import { blogPostNavStyle, navBoxStyle } from './styles';
+import { articleBodyStyle, blogPostNavStyle, navBoxStyle } from './styles';
 import Bio from '../components/bio';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
@@ -31,6 +31,7 @@ const BlogPostTemplate = ({
           )}
         </header>
         <section
+          css={articleBodyStyle}
           dangerouslySetInnerHTML={{ __html: post?.html || '' }}
           itemProp="articleBody"
         />
