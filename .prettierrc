@@ -4,8 +4,8 @@
   "useTabs": false,
   "singleQuote": true,
   "arrowParens": "avoid",
+  "trailingComma": "es5",
   "printWidth": 80,
   "tabWidth": 2,
-  "trailingComma": "all",
   "endOfLine": "auto"
 }
