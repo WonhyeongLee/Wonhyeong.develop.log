@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { useLocation } from '@reach/router';
 import { Link } from 'gatsby';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -32,17 +31,16 @@ type TagProps = {
   tag: string;
 };
 
-const Tag = ({ tag }: TagProps) => {
+const Tag = ({ tag }: TagProps): JSX.Element => {
   const selectedTags = useSelector((state: RootState) => state.tags);
   const dispatch = useDispatch();
-  const location = useLocation();
 
   return (
     <Link
       to={`/`}
       css={selectedTags.includes(tag) ? [tagStyle, selectedTagStyle] : tagStyle}
       onClick={event => {
-        if (location.pathname === '/') {
+        if (typeof window !== 'undefined' && window.location.pathname === '/') {
           event.preventDefault();
         }
         // setSelectedTags(tag);
