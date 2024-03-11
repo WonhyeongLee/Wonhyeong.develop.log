@@ -16,6 +16,7 @@ const config: GatsbyConfig = {
     },
   },
   graphqlTypegen: true,
+  jsxRuntime: 'automatic',
   plugins: [
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
