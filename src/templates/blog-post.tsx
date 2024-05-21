@@ -14,20 +14,12 @@ const BlogPostTemplate = ({
   const post = data.markdownRemark;
   return (
     <Layout location={location} title={siteTitle}>
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-      >
+      <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>
           <h1 itemProp="headline">{post?.frontmatter?.title}</h1>
           <p>{post?.frontmatter?.date}</p>
           {post?.frontmatter?.tags && (
-            <div>
-              {post?.frontmatter?.tags.map(tag => (
-                <Tag key={tag} tag={tag || ''} />
-              ))}
-            </div>
+            <div>{post?.frontmatter?.tags.map(tag => <Tag key={tag} tag={tag || ''} />)}</div>
           )}
         </header>
         <section
@@ -68,9 +60,7 @@ const BlogPostTemplate = ({
   );
 };
 
-export const Head = ({
-  data,
-}: PageProps<Queries.BlogPostTemplateQuery>): JSX.Element => {
+export const Head = ({ data }: PageProps<Queries.BlogPostTemplateQuery>): JSX.Element => {
   const post = data.markdownRemark;
   return (
     <Seo
@@ -83,11 +73,7 @@ export const Head = ({
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostTemplate(
-    $id: String!
-    $previousPostId: String
-    $nextPostId: String
-  ) {
+  query BlogPostTemplate($id: String!, $previousPostId: String, $nextPostId: String) {
     site {
       siteMetadata {
         title

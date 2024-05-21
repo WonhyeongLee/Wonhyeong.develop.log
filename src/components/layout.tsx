@@ -66,15 +66,10 @@ const Layout = ({ location, title, children }: LayoutProps): JSX.Element => {
       <header css={globalHeaderStyle}>
         {header}
         <div>
-          <button onClick={() => setIsTagListVisible(!isTagListVisible)}>
-            tags
-          </button>
+          <button onClick={() => setIsTagListVisible(!isTagListVisible)}>tags</button>
         </div>
       </header>
-      <main
-        css={mainWrapperStyle}
-        className={isTagListVisible ? 'slideDown' : 'slideUp'}
-      >
+      <main css={mainWrapperStyle} className={isTagListVisible ? 'slideDown' : 'slideUp'}>
         <Transition in={isTagListVisible} timeout={300} unmountOnExit>
           {state => (
             <div css={tagsListStyle(state)}>

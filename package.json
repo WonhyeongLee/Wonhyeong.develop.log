@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "wonhyeong's log",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "gatsby-blog-starter을 기반으로 개인블로그로 개조",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "wonhyeong lee <kkwon9607@gmail.com>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },

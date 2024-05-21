@@ -13,9 +13,7 @@ const tagsSlice = createSlice({
         const newTags = state.filter(tag => tag !== action.payload);
         return newTags.length ? newTags : ['All'];
       }
-      return state.includes('All')
-        ? [action.payload]
-        : [...state, action.payload];
+      return state.includes('All') ? [action.payload] : [...state, action.payload];
     },
     resetTags: () => ['All'],
   },

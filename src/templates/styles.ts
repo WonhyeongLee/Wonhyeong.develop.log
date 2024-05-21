@@ -34,9 +34,7 @@ export const articleBodyStyle = css`
   }
   .para .gatsby-resp-image-wrapper {
     flex: 1 1 calc(50% - var(--spacing-4));
-    max-width: calc(
-      50% - var(--spacing-4)
-    ); /* 최대 너비 설정으로 이미지가 너무 커지는 것을 방지 */
+    max-width: calc(50% - var(--spacing-4)); /* 최대 너비 설정으로 이미지가 너무 커지는 것을 방지 */
     display: block;
     position: relative;
   }

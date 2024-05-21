@@ -11,10 +11,7 @@ import Layout from '@components/layout';
 import Seo from '@components/seo';
 import Tag from '@components/tags';
 
-const BlogIndex = ({
-  data,
-  location,
-}: PageProps<Queries.BlogIndexQuery>): JSX.Element => {
+const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.Element => {
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
   const selectedTags = useSelector((state: RootState) => state.tags);
@@ -23,9 +20,7 @@ const BlogIndex = ({
     if (!selectedTags.length || selectedTags.includes('All')) {
       return posts;
     }
-    return posts.filter(post =>
-      selectedTags.every(tag => post.frontmatter?.tags?.includes(tag))
-    );
+    return posts.filter(post => selectedTags.every(tag => post.frontmatter?.tags?.includes(tag)));
   }, [posts, selectedTags]);
 
   if (posts.length === 0) {
@@ -33,9 +28,8 @@ const BlogIndex = ({
       <Layout location={location} title={siteTitle}>
         <Bio />
         <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
+          No blog posts found. Add markdown posts to "content/blog" (or the directory you specified
+          for the "gatsby-source-filesystem" plugin in gatsby-config.js).
         </p>
       </Layout>
     );
@@ -51,11 +45,7 @@ const BlogIndex = ({
           const title = post.frontmatter?.title || post.fields?.slug;
           return (
             <li key={post.fields?.slug}>
-              <section
-                css={postListStyle}
-                itemScope
-                itemType="http://schema.org/Article"
-              >
+              <section css={postListStyle} itemScope itemType="http://schema.org/Article">
                 <header>
                   <h2>
                     <Link to={post.fields?.slug || ''} itemProp="url">
@@ -67,8 +57,7 @@ const BlogIndex = ({
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html:
-                        post.frontmatter?.description || post.excerpt || '',
+                      __html: post.frontmatter?.description || post.excerpt || '',
                     }}
                     itemProp="description"
                   />

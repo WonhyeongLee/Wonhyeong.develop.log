@@ -64,11 +64,7 @@ const Bio = (): JSX.Element => {
           </p>
           <p>{description}</p>
           <div css={socialIconListStyle}>
-            <a
-              href={`${social?.github || ``}`}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={`${social?.github || ``}`} target="_blank" rel="noreferrer">
               <FontAwesomeIcon icon={faGithub} css={socialIconStyle} />
             </a>
           </div>

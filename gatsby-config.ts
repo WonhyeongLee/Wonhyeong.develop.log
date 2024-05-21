@@ -155,11 +155,7 @@ const config: GatsbyConfig = {
         `,
         feeds: [
           {
-            serialize: ({
-              query: { site, allMarkdownRemark },
-            }: {
-              query: FeedQueryResult;
-            }) => {
+            serialize: ({ query: { site, allMarkdownRemark } }: { query: FeedQueryResult }) => {
               return allMarkdownRemark.nodes.map(node => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,

@@ -21,9 +21,7 @@ import 'prismjs/themes/prism.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
-export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
-  element,
-}) => {
+export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
     <>
       <Global

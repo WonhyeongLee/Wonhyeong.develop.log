@@ -4,7 +4,6 @@ about: 버그수정
 title: 'Bug : '
 labels: ''
 assignees: ''
-
 ---
 
 ## 버그 설명
