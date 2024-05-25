@@ -19,28 +19,21 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-type TagsQueryResult = {
-  allMarkdownRemark: {
-    group: {
-      fieldValue: string;
-    }[];
-  };
-};
-
 const Layout = ({ location, title, children }: LayoutProps): JSX.Element => {
   const [isTagListVisible, setIsTagListVisible] = useState(true);
   const { resetSelectedTags } = useContext(TagContext);
 
-  const data: TagsQueryResult = useStaticQuery(graphql`
-    query TagsQuery {
-      allMarkdownRemark(limit: 2000) {
-        group(field: frontmatter___tags) {
+  const data: Queries.AllTagsQuery = useStaticQuery(graphql`
+    query AllTags {
+      allMdx(limit: 1000) {
+        group(field: { frontmatter: { tags: SELECT } }) {
           fieldValue
+          totalCount
         }
       }
     }
   `);
-  const tags = data.allMarkdownRemark.group;
+  const tags = data.allMdx.group;
   const rootPath = `${__PATH_PREFIX__}/`;
   const isRootPath = location.pathname === rootPath;
   let header;
@@ -75,7 +68,7 @@ const Layout = ({ location, title, children }: LayoutProps): JSX.Element => {
             <div css={tagsListStyle(state)}>
               <Tag key="All" tag="All" />
               {tags.map(tag => (
-                <Tag key={tag.fieldValue} tag={tag.fieldValue} />
+                <Tag key={tag.fieldValue} tag={tag.fieldValue || ''} totalCount={tag.totalCount} />
               ))}
             </div>
           )}
