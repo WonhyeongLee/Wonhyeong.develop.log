@@ -4,8 +4,7 @@ import { GatsbyNode, CreateNodeArgs, CreateWebpackConfigArgs } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 // import _ from 'lodash';
 
-// Define the template for blog post
-const blogPost = path.resolve(`src/templates/blog-post.tsx`);
+const blogPost = path.resolve(`src/templates/PostTemplate.tsx`);
 // const TagPageTemplete = path.resolve(`src/templates/tags.tsx`);
 
 exports.onCreateWebpackConfig = ({ getConfig, actions }: CreateWebpackConfigArgs) => {
@@ -38,9 +37,8 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({
 }: CreateNodeArgs) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode });
-
     createNodeField({
       name: `slug`,
       node,
@@ -52,32 +50,21 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
 
-  // Get all markdown blog posts sorted by date
   const result = await graphql<Queries.BlogPostsDataQuery>(`
     query BlogPostsData {
-      allMarkdownRemark(sort: { frontmatter: { date: ASC } }, limit: 1000) {
+      allMdx(sort: { frontmatter: { date: ASC } }, limit: 1000) {
         nodes {
           id
           fields {
             slug
           }
-        }
-      }
-      postsRemark: allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 2000) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              tags
-            }
+          frontmatter {
+            title
+            tags
           }
-        }
-      }
-      tagsGroup: allMarkdownRemark(limit: 2000) {
-        group(field: { frontmatter: { tags: SELECT } }) {
-          fieldValue
+          internal {
+            contentFilePath
+          }
         }
       }
     }
@@ -88,28 +75,27 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     return;
   }
 
-  const posts = result.data?.allMarkdownRemark.nodes;
+  const mdxPosts = result.data?.allMdx.nodes || [];
 
-  // Create blog posts pages
-  // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
-  // `context` is available in the template as a prop and as a variable in GraphQL
-
-  if (posts && posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id;
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id;
+  if (mdxPosts.length > 0) {
+    mdxPosts.forEach((node, index) => {
+      const previousPostId = index === 0 ? null : mdxPosts[index - 1].id;
+      const nextPostId = index === mdxPosts.length - 1 ? null : mdxPosts[index + 1].id;
 
       createPage({
-        path: post.fields?.slug || '',
-        component: blogPost,
+        path: node.fields?.slug || '',
+        component: `${blogPost}?__contentFilePath=${node.internal.contentFilePath}`,
         context: {
-          id: post.id,
+          id: node.id,
           previousPostId,
           nextPostId,
+          tags: node.frontmatter?.tags,
+          type: 'mdx',
         },
       });
     });
   }
+
   // const tags = result.data?.tagsGroup.group;
   // if (tags) {
   //   tags.forEach(tag => {
@@ -152,8 +138,16 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
 
     type MarkdownRemark implements Node {
       frontmatter: Frontmatter
+      excerpt(pruneLength: Int = 140): String
       fields: Fields
       html: String
+    }
+
+    type Mdx implements Node {
+      frontmatter: Frontmatter
+      excerpt(pruneLength: Int = 140): String
+      fields: Fields
+      body: String
     }
 
     type Frontmatter {

@@ -9,7 +9,7 @@ const config: GatsbyConfig = {
     author: {
       name: `이원형`,
     },
-    description: `기록하기 위한 공간`,
+    description: `학습을 기록하기 위한 공간입니다.`,
     siteUrl: `https://wonhyeong.netlify.app/`,
     social: {
       github: `https://github.com/WonhyeongLee`,
@@ -21,74 +21,25 @@ const config: GatsbyConfig = {
   plugins: [
     `gatsby-plugin-image`,
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        name: `posts`,
-        path: `${__dirname}/content/blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/content/blog`,
-      },
-    },
-    `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `blog`,
-        path: `${__dirname}/content/blog`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-typescript`,
-      options: {
-        isTSX: true, // defaults to false
-        jsxPragma: `React`, // defaults to "React"
-        allExtensions: true, // defaults to false
-      },
-    },
-    {
-      resolve: `gatsby-plugin-alias-imports`,
-      options: {
-        alias: {
-          '@src': 'src',
-          '@app': 'src/app',
-          '@components': 'src/components',
-          '@context': 'src/context',
-          '@features': 'src/features',
-          '@images': 'src/images',
-          '@layouts': 'src/layouts',
-          '@pages': 'src/pages',
-          '@styles': 'src/styles',
-          '@templates': 'src/templates',
-          '@types': 'src/types',
-          '@posts': 'content/posts',
-        },
-        extensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-      },
-    },
-    `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-classes`,
-            options: {
-              classMap: {
-                paragraph: 'para',
-              },
-            },
-          },
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630,
               wrapperStyle: (fluidResult: { aspectRatio: any }) =>
                 `flex:${_.round(fluidResult.aspectRatio, 2)};`,
+            },
+          },
+          `gatsby-remark-autolink-headers`,
+          {
+            resolve: `gatsby-remark-classes`,
+            options: {
+              classMap: {
+                paragraph: 'para',
+              },
             },
           },
           {
@@ -108,25 +59,54 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        extensions: [`.mdx`],
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 630,
-            },
-          },
-          {
-            resolve: `gatsby-remark-classes`,
-            options: {
-              classMap: {
-                paragraph: 'para',
-              },
-            },
-          },
-        ],
+        name: `posts`,
+        path: `${__dirname}/content/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/content/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/content/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        jsxPragma: `React`, // defaults to "React"
+        allExtensions: true, // defaults to false
+      },
+    },
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@src': 'src',
+          '@app': 'src/app',
+          '@components': 'src/components',
+          '@context': 'src/context',
+          '@features': 'src/features',
+          '@images': 'src/images',
+          '@layouts': 'src/layouts',
+          '@pages': 'src/pages',
+          '@styles': 'src/styles',
+          '@templates': 'src/templates',
+          '@types': 'src/types',
+          '@posts': 'content/posts',
+        },
+        extensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
       },
     },
     `gatsby-plugin-emotion`,
