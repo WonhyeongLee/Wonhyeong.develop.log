@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Link, graphql, PageProps } from 'gatsby';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { postTagsListStyle, postListStyle, footerStyle } from './styles';
 
@@ -10,20 +10,45 @@ import Bio from '@components/bio';
 import Layout from '@components/layout';
 import Seo from '@components/seo';
 import Tag from '@components/tags';
+import { resetTags, selectTag } from '@src/features/tags/tagsSlice';
 
 const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.Element => {
+  const dispatch = useDispatch();
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
-  const posts = data.allMarkdownRemark.nodes;
+  const mdxPosts = data.allMdx.nodes;
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(location.search);
+    const selectedTagsFromURL = urlSearchParams.getAll('tag');
+    dispatch(resetTags());
+    if (selectedTagsFromURL.length > 0) {
+      selectedTagsFromURL.forEach(tag => dispatch(selectTag(tag)));
+    }
+  }, [dispatch, location.search]);
+
   const selectedTags = useSelector((state: RootState) => state.tags);
 
   const filteredPosts = useMemo(() => {
-    if (!selectedTags.length || selectedTags.includes('All')) {
-      return posts;
+    if (selectedTags.length === 0) {
+      return mdxPosts;
     }
-    return posts.filter(post => selectedTags.every(tag => post.frontmatter?.tags?.includes(tag)));
-  }, [posts, selectedTags]);
+    return mdxPosts.filter(post =>
+      selectedTags.every(tag => post.frontmatter?.tags?.includes(tag))
+    );
+  }, [mdxPosts, selectedTags]);
 
-  if (posts.length === 0) {
+  // const selectedTags = useSelector((state: RootState) => state.tags);
+
+  // const filteredPosts = useMemo(() => {
+  //   if (!selectedTags.length || selectedTags.includes('All')) {
+  //     return mdxPosts;
+  //   }
+  //   return mdxPosts.filter(post =>
+  //     selectedTags.every(tag => post.frontmatter?.tags?.includes(tag))
+  //   );
+  // }, [mdxPosts, selectedTags]);
+
+  if (mdxPosts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
         <Bio />
@@ -101,9 +126,9 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 1000) {
+    allMdx(sort: { frontmatter: { date: DESC } }, limit: 1000) {
       nodes {
-        excerpt
+        excerpt(pruneLength: 160)
         fields {
           slug
         }
@@ -113,10 +138,6 @@ export const pageQuery = graphql`
           description
           tags
         }
-      }
-      group(field: { frontmatter: { tags: SELECT } }) {
-        tag: fieldValue
-        totalCount
       }
     }
   }
