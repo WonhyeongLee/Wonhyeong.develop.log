@@ -1,19 +1,20 @@
 import { useEffect, useMemo } from 'react';
 
 import { Link, graphql, PageProps } from 'gatsby';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { postTagsListStyle, postListStyle, footerStyle } from './styles';
 
-import { RootState } from '@app/rootReducer';
 import Bio from '@components/bio';
 import Layout from '@components/layout';
 import Seo from '@components/seo';
 import Tag from '@components/tags';
-import { resetTags, selectTag } from '@src/features/tags/tagsSlice';
+import { resetTags, selectTag } from '@redux/features/tags/tagsSlice';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { RootState } from '@redux/rootReducer';
 
 const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const selectedTags = useAppSelector((state: RootState) => state.tags.selectedTags);
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
   const mdxPosts = data.allMdx.nodes;
 
@@ -26,8 +27,6 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.E
     }
   }, [dispatch, location.search]);
 
-  const selectedTags = useSelector((state: RootState) => state.tags);
-
   const filteredPosts = useMemo(() => {
     if (selectedTags.length === 0) {
       return mdxPosts;
@@ -36,17 +35,6 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.E
       selectedTags.every(tag => post.frontmatter?.tags?.includes(tag))
     );
   }, [mdxPosts, selectedTags]);
-
-  // const selectedTags = useSelector((state: RootState) => state.tags);
-
-  // const filteredPosts = useMemo(() => {
-  //   if (!selectedTags.length || selectedTags.includes('All')) {
-  //     return mdxPosts;
-  //   }
-  //   return mdxPosts.filter(post =>
-  //     selectedTags.every(tag => post.frontmatter?.tags?.includes(tag))
-  //   );
-  // }, [mdxPosts, selectedTags]);
 
   if (mdxPosts.length === 0) {
     return (

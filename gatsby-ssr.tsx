@@ -2,10 +2,10 @@
 import type { GatsbySSR } from 'gatsby';
 import { Provider } from 'react-redux';
 
-import store from './src/app/store';
+import { store } from '@redux/store';
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({ setHtmlAttributes }) =>
-  setHtmlAttributes({ lang: 'en' });
+  setHtmlAttributes({ lang: 'ko' });
 
 export const wrapRootElement: GatsbySSR['wrapPageElement'] = ({ element }) => {
   return <Provider store={store}>{element}</Provider>;

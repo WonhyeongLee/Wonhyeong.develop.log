@@ -94,10 +94,10 @@ const config: GatsbyConfig = {
       options: {
         alias: {
           '@src': 'src',
-          '@app': 'src/app',
+          '@redux': 'src/redux',
           '@components': 'src/components',
           '@context': 'src/context',
-          '@features': 'src/features',
+          '@features': 'src/redux/features',
           '@images': 'src/images',
           '@layouts': 'src/layouts',
           '@pages': 'src/pages',

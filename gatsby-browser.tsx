@@ -4,7 +4,7 @@ import type { GatsbyBrowser } from 'gatsby';
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 import { Provider } from 'react-redux';
 
-import { store } from '@app/store';
+import { store } from '@redux/store';
 import { globalStyles } from '@styles/globalStyles';
 import { globalVariables } from '@styles/globalVariables';
 // custom typefaces
