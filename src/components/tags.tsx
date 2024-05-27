@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
-import { Link } from 'gatsby';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link, navigate } from 'gatsby';
 
-import { RootState } from '../app/store';
-import { selectTag } from '../features/tags/tagsSlice';
+import { resetTags, selectTag } from '@redux/features/tags/tagsSlice';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { RootState } from '@redux/rootReducer';
 
 const hoverAndSelectedTagStyle = css`
   font-weight: var(--fontWeight-bold);
@@ -29,25 +29,35 @@ const selectedTagStyle = css`
 
 type TagProps = {
   tag: string;
+  totalCount?: number;
 };
 
-const Tag = ({ tag }: TagProps): JSX.Element => {
-  const selectedTags = useSelector((state: RootState) => state.tags);
-  const dispatch = useDispatch();
+const Tag = ({ tag, totalCount }: TagProps): JSX.Element => {
+  const selectedTags = useAppSelector((state: RootState) => state.tags.selectedTags);
+  const dispatch = useAppDispatch();
+
+  const handleTagClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    event.preventDefault();
+    if (tag === 'All') {
+      dispatch(resetTags());
+      navigate('/');
+    } else {
+      dispatch(selectTag(tag));
+      const newTags = selectedTags.includes(tag)
+        ? selectedTags.filter(t => t !== tag)
+        : [...selectedTags, tag];
+      const queryParams = newTags.length > 0 ? newTags.map(t => `tag=${t}`).join('&') : '';
+      navigate(queryParams ? `/?${queryParams}` : '/');
+    }
+  };
 
   return (
     <Link
       to={`/`}
       css={selectedTags.includes(tag) ? [tagStyle, selectedTagStyle] : tagStyle}
-      onClick={event => {
-        if (typeof window !== 'undefined' && window.location.pathname === '/') {
-          event.preventDefault();
-        }
-        // setSelectedTags(tag);
-        dispatch(selectTag(tag));
-      }}
+      onClick={handleTagClick}
     >
-      {tag}
+      {tag} {totalCount !== undefined && `(${totalCount})`}
     </Link>
   );
 };

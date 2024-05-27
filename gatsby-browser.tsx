@@ -4,7 +4,7 @@ import type { GatsbyBrowser } from 'gatsby';
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 import { Provider } from 'react-redux';
 
-import { store } from '@app/store';
+import { store } from '@redux/store';
 import { globalStyles } from '@styles/globalStyles';
 import { globalVariables } from '@styles/globalVariables';
 // custom typefaces
@@ -21,9 +21,7 @@ import 'prismjs/themes/prism.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
-export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
-  element,
-}) => {
+export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
     <>
       <Global

@@ -1,3 +1,4 @@
+import { MDXProvider } from '@mdx-js/react';
 import { Link, graphql, PageProps } from 'gatsby';
 
 import { articleBodyStyle, blogPostNavStyle, navBoxStyle } from './styles';
@@ -6,35 +7,30 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Tag from '../components/tags';
 
+const shortcodes = { Link };
 const BlogPostTemplate = ({
   data,
   location,
-}: PageProps<Queries.BlogPostTemplateQuery>): JSX.Element => {
+  children,
+}: PageProps<Queries.BlogPostTemplateQuery> & { children: React.ReactNode }): JSX.Element => {
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
-  const post = data.markdownRemark;
+  const post = data.mdx;
+  const previousPost = data.previousMdx;
+  const nextPost = data.nextMdx;
+
   return (
     <Layout location={location} title={siteTitle}>
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-      >
+      <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>
           <h1 itemProp="headline">{post?.frontmatter?.title}</h1>
           <p>{post?.frontmatter?.date}</p>
           {post?.frontmatter?.tags && (
-            <div>
-              {post?.frontmatter?.tags.map(tag => (
-                <Tag key={tag} tag={tag || ''} />
-              ))}
-            </div>
+            <div>{post?.frontmatter?.tags.map(tag => <Tag key={tag} tag={tag || ''} />)}</div>
           )}
         </header>
-        <section
-          css={articleBodyStyle}
-          dangerouslySetInnerHTML={{ __html: post?.html || '' }}
-          itemProp="articleBody"
-        />
+        <section css={articleBodyStyle} itemProp="articleBody">
+          <MDXProvider components={shortcodes}>{children}</MDXProvider>
+        </section>
         <hr />
         <footer>
           <Bio />
@@ -43,21 +39,21 @@ const BlogPostTemplate = ({
       <nav css={blogPostNavStyle}>
         <ul>
           <li>
-            {data.previous && (
+            {previousPost && (
               <div css={navBoxStyle}>
                 <span>이전 게시물</span>
-                <Link to={data.previous?.fields?.slug || ''} rel="prev">
-                  ← {data.previous?.frontmatter?.title}
+                <Link to={previousPost?.fields?.slug || ''} rel="prev">
+                  ← {previousPost?.frontmatter?.title}
                 </Link>
               </div>
             )}
           </li>
           <li>
-            {data.next && (
+            {nextPost && (
               <div css={navBoxStyle}>
                 <span>다음 게시물</span>
-                <Link to={data.next?.fields?.slug || ''} rel="next">
-                  {data.next?.frontmatter?.title} →
+                <Link to={nextPost?.fields?.slug || ''} rel="next">
+                  {nextPost?.frontmatter?.title} →
                 </Link>
               </div>
             )}
@@ -68,10 +64,8 @@ const BlogPostTemplate = ({
   );
 };
 
-export const Head = ({
-  data,
-}: PageProps<Queries.BlogPostTemplateQuery>): JSX.Element => {
-  const post = data.markdownRemark;
+export const Head = ({ data }: PageProps<Queries.BlogPostTemplateQuery>): JSX.Element => {
+  const post = data.mdx;
   return (
     <Seo
       title={post?.frontmatter?.title || ''}
@@ -83,20 +77,16 @@ export const Head = ({
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostTemplate(
-    $id: String!
-    $previousPostId: String
-    $nextPostId: String
-  ) {
+  query BlogPostTemplate($id: String!, $previousPostId: String, $nextPostId: String) {
     site {
       siteMetadata {
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
+      body
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
@@ -104,7 +94,7 @@ export const pageQuery = graphql`
         tags
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
+    previousMdx: mdx(id: { eq: $previousPostId }) {
       fields {
         slug
       }
@@ -112,7 +102,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    next: markdownRemark(id: { eq: $nextPostId }) {
+    nextMdx: mdx(id: { eq: $nextPostId }) {
       fields {
         slug
       }

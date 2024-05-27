@@ -1,41 +1,48 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Link, graphql, PageProps } from 'gatsby';
-import { useSelector } from 'react-redux';
 
 import { postTagsListStyle, postListStyle, footerStyle } from './styles';
 
-import { RootState } from '@app/rootReducer';
 import Bio from '@components/bio';
 import Layout from '@components/layout';
 import Seo from '@components/seo';
 import Tag from '@components/tags';
+import { resetTags, selectTag } from '@redux/features/tags/tagsSlice';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { RootState } from '@redux/rootReducer';
 
-const BlogIndex = ({
-  data,
-  location,
-}: PageProps<Queries.BlogIndexQuery>): JSX.Element => {
+const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const selectedTags = useAppSelector((state: RootState) => state.tags.selectedTags);
   const siteTitle = data.site?.siteMetadata?.title || `Title`;
-  const posts = data.allMarkdownRemark.nodes;
-  const selectedTags = useSelector((state: RootState) => state.tags);
+  const mdxPosts = data.allMdx.nodes;
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(location.search);
+    const selectedTagsFromURL = urlSearchParams.getAll('tag');
+    dispatch(resetTags());
+    if (selectedTagsFromURL.length > 0) {
+      selectedTagsFromURL.forEach(tag => dispatch(selectTag(tag)));
+    }
+  }, [dispatch, location.search]);
 
   const filteredPosts = useMemo(() => {
-    if (!selectedTags.length || selectedTags.includes('All')) {
-      return posts;
+    if (selectedTags.length === 0) {
+      return mdxPosts;
     }
-    return posts.filter(post =>
+    return mdxPosts.filter(post =>
       selectedTags.every(tag => post.frontmatter?.tags?.includes(tag))
     );
-  }, [posts, selectedTags]);
+  }, [mdxPosts, selectedTags]);
 
-  if (posts.length === 0) {
+  if (mdxPosts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
         <Bio />
         <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
+          No blog posts found. Add markdown posts to "content/blog" (or the directory you specified
+          for the "gatsby-source-filesystem" plugin in gatsby-config.js).
         </p>
       </Layout>
     );
@@ -51,11 +58,7 @@ const BlogIndex = ({
           const title = post.frontmatter?.title || post.fields?.slug;
           return (
             <li key={post.fields?.slug}>
-              <section
-                css={postListStyle}
-                itemScope
-                itemType="http://schema.org/Article"
-              >
+              <section css={postListStyle} itemScope itemType="http://schema.org/Article">
                 <header>
                   <h2>
                     <Link to={post.fields?.slug || ''} itemProp="url">
@@ -67,8 +70,7 @@ const BlogIndex = ({
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html:
-                        post.frontmatter?.description || post.excerpt || '',
+                      __html: post.frontmatter?.description || post.excerpt || '',
                     }}
                     itemProp="description"
                   />
@@ -112,9 +114,9 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 1000) {
+    allMdx(sort: { frontmatter: { date: DESC } }, limit: 1000) {
       nodes {
-        excerpt
+        excerpt(pruneLength: 160)
         fields {
           slug
         }
@@ -124,10 +126,6 @@ export const pageQuery = graphql`
           description
           tags
         }
-      }
-      group(field: { frontmatter: { tags: SELECT } }) {
-        tag: fieldValue
-        totalCount
       }
     }
   }

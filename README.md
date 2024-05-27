@@ -8,7 +8,7 @@
 
 _[Gatsby-blog-starter](https://github.com/gatsbyjs/gatsby-starter-blog)_ 를 이용해 시작했고 필요한 기능들을 개발하고 개선하고 있습니다.
 
-netlify를 이용해 배포합니다. https://wonhyeong.netlify.app/
+netlify를 이용해 배포합니다. <https://wonhyeong.netlify.app/>
 
 ![image](https://github.com/WonhyeongLee/Wonhyeong.develop.log/assets/54429762/c49b4cd9-6f8a-4ef7-93dc-eea0c25e41fe)
 
@@ -37,5 +37,6 @@ netlify를 이용해 배포합니다. https://wonhyeong.netlify.app/
 
 ## 해결한 이슈
 
-- UI 변경 및 CSS-in-JS(Emotion) 적용 후 FOUC 현상 해결 https://github.com/WonhyeongLee/Wonhyeong.develop.log/pull/4
-- 아이콘 크기 문제 해결 <br>https://github.com/WonhyeongLee/Wonhyeong.develop.log/pull/2
+- UI 변경 및 CSS-in-JS(Emotion) 적용 후 FOUC 현상 해결 <https://github.com/WonhyeongLee/Wonhyeong.develop.log/pull/4>
+- 아이콘 크기 문제 해결 <br /><https://github.com/WonhyeongLee/Wonhyeong.develop.log/pull/2>
+- 이미지 태그에 스타일 적용하기

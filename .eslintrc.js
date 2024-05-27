@@ -1,11 +1,6 @@
 module.exports = {
   // 무시할 파일 패턴
-  ignorePatterns: [
-    '**/public/**',
-    '**/.cache/**',
-    '**/static/**',
-    '**/content/**',
-  ],
+  ignorePatterns: ['**/public/**', '**/.cache/**', '**/static/**', '**/content/**'],
 
   // 실행 환경 설정
   env: {
@@ -58,10 +53,7 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
-    '@typescript-eslint/no-empty-interface': [
-      'error',
-      { allowSingleExtends: true },
-    ],
+    '@typescript-eslint/no-empty-interface': ['error', { allowSingleExtends: true }],
 
     // React 규칙
     'react/react-in-jsx-scope': 'off',
@@ -70,17 +62,11 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
 
     // 일반 JavaScript 규칙
-    'linebreak-style': [
-      'error',
-      require('os').EOL === '\r\n' ? 'windows' : 'unix',
-    ],
+    'linebreak-style': ['error', require('os').EOL === '\r\n' ? 'windows' : 'unix'],
     'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
     'no-var': 'error',
-    'prefer-const': [
-      'error',
-      { destructuring: 'all', ignoreReadBeforeAssign: true },
-    ],
+    'prefer-const': ['error', { destructuring: 'all', ignoreReadBeforeAssign: true }],
     'comma-dangle': [
       'error',
       {
@@ -92,20 +78,13 @@ module.exports = {
       },
     ],
     indent: ['error', 2],
-    quotes: [
-      'error',
-      'single',
-      { avoidEscape: true, allowTemplateLiterals: true },
-    ],
+    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     semi: ['error', 'always', { omitLastInOneLineBlock: true }],
     eqeqeq: ['error', 'smart'],
     curly: ['error', 'all'],
 
     // 코드 스타일과 포매팅 관련 규칙
-    'prettier/prettier': [
-      'warn',
-      { useTabs: false, endOfLine: 'auto', trailingComma: 'es5' },
-    ],
+    'prettier/prettier': ['warn', { useTabs: false, endOfLine: 'auto', trailingComma: 'es5' }],
 
     'import/default': 'off',
     'import/no-named-as-default-member': 'off',

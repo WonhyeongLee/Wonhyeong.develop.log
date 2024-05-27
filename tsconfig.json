@@ -25,7 +25,7 @@
     "baseUrl": ".", // 모든 상대 경로의 기준이 되는 디렉토리를 설정합니다.
     "paths": {
       "@src/*": ["src/*"],
-      "@app/*": ["src/app/*"],
+      "@redux/*": ["src/redux/*"],
       "@components/*": ["src/components/*"],
       "@context/*": ["src/context/*"],
       "@features/*": ["src/features/*"],
