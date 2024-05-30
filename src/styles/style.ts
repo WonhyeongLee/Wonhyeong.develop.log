@@ -90,8 +90,9 @@ export const socialIconStyle = css`
 // layout의 tagListStyle
 export const tagsListStyle = (state: string): SerializedStyles => css`
   ${globalContentsStyle}
-  position: relative;
+  display: flex;
   flex-wrap: wrap;
+  list-style: none;
   background: #f4f4f4;
   padding: 10px 20px;
   visibility: hidden;
