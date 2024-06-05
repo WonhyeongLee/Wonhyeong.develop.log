@@ -1,6 +1,7 @@
 import { GatsbyConfig } from 'gatsby';
 import _ from 'lodash';
 
+import WrapImagePlugin from './plugins/gatsby-remark-wrap-image';
 import { FeedQueryResult } from './src/types/FeedQueryResult';
 
 const config: GatsbyConfig = {
@@ -21,27 +22,34 @@ const config: GatsbyConfig = {
   plugins: [
     `gatsby-plugin-image`,
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/content/blog`,
+      },
+    },
+    `gatsby-plugin-sharp`,
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
+        mdxOptions: {
+          remarkPlugins: [WrapImagePlugin],
+          rehypePlugins: [],
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 630,
+              maxWidth: 768,
+              withWebp: true,
+              // showCaptions: true,
+              quality: 100,
               wrapperStyle: (fluidResult: { aspectRatio: any }) =>
                 `flex:${_.round(fluidResult.aspectRatio, 2)};`,
             },
           },
           `gatsby-remark-autolink-headers`,
-          {
-            resolve: `gatsby-remark-classes`,
-            options: {
-              classMap: {
-                paragraph: 'para',
-              },
-            },
-          },
           {
             resolve: `gatsby-remark-gifs`,
           },
@@ -55,28 +63,13 @@ const config: GatsbyConfig = {
             },
           },
           `gatsby-remark-prismjs`,
+          {
+            resolve: 'gatsby-remark-code-titles',
+            options: {
+              className: 'your-custom-class-name',
+            },
+          },
         ],
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `posts`,
-        path: `${__dirname}/content/blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/content/blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `blog`,
-        path: `${__dirname}/content/blog`,
       },
     },
     {
@@ -87,7 +80,6 @@ const config: GatsbyConfig = {
         allExtensions: true, // defaults to false
       },
     },
-    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-alias-imports`,
@@ -95,9 +87,9 @@ const config: GatsbyConfig = {
         alias: {
           '@src': 'src',
           '@redux': 'src/redux',
+          '@features': 'src/redux/features',
           '@components': 'src/components',
           '@context': 'src/context',
-          '@features': 'src/redux/features',
           '@images': 'src/images',
           '@layouts': 'src/layouts',
           '@pages': 'src/pages',
