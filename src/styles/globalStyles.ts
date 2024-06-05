@@ -45,6 +45,20 @@ export const globalStyles = css`
     text-decoration-skip-ink: auto;
   }
 
+  /* 이미지 wrapper에 적용할 style */
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-4);
+    max-width: 100%;
+  }
+
+  .image-wrapper {
+    flex: 1 1 calc(50% - var(--spacing-4));
+    box-sizing: border-box;
+    margin-bottom: var(--spacing-4);
+  }
   /* Make images easier to work with */
   img,
   picture {
