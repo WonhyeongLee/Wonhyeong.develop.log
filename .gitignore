@@ -73,3 +73,7 @@ src/gatsby-types.d.ts
 
 settings.json
 plugins/
+
+# 기타
+
+_gatsby-config.mjs

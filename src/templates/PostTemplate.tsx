@@ -1,7 +1,7 @@
 import { MDXProvider } from '@mdx-js/react';
 import { Link, graphql, PageProps } from 'gatsby';
 
-import { articleBodyStyle, blogPostNavStyle, navBoxStyle } from './styles';
+import { blogPostNavStyle, navBoxStyle } from './styles';
 import Bio from '../components/bio';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
@@ -28,7 +28,7 @@ const BlogPostTemplate = ({
             <div>{post?.frontmatter?.tags.map(tag => <Tag key={tag} tag={tag || ''} />)}</div>
           )}
         </header>
-        <section css={articleBodyStyle} itemProp="articleBody">
+        <section itemProp="articleBody">
           <MDXProvider components={shortcodes}>{children}</MDXProvider>
         </section>
         <hr />

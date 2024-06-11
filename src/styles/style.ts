@@ -66,7 +66,7 @@ export const footerStyle = css`
   text-align: center;
   color: var(--color-text);
   border-top: 1px solid rgb(233, 236, 239);
-  margin-top: 180px;
+  margin-top: 40px;
   padding-top: var(--spacing-12);
   > p {
     margin: var(--spacing-1) 0;
@@ -87,11 +87,13 @@ export const socialIconStyle = css`
     transition: color 0.3s;
   }
 `;
+
 // layout의 tagListStyle
 export const tagsListStyle = (state: string): SerializedStyles => css`
   ${globalContentsStyle}
-  position: relative;
+  display: flex;
   flex-wrap: wrap;
+  list-style: none;
   background: #f4f4f4;
   padding: 10px 20px;
   visibility: hidden;
@@ -129,6 +131,6 @@ export const mainWrapperStyle = css`
   }
 
   article {
-    padding-top: var(--spacing-12);
+    padding: var(--spacing-12) 0 var(--spacing-1) var(--spacing-1);
   }
 `;

@@ -13,12 +13,13 @@ exports.onCreateWebpackConfig = ({ getConfig, actions }: CreateWebpackConfigArgs
   actions.setWebpackConfig({
     output,
     resolve: {
+      // modules: [path.resolve(__dirname, 'plugins'), 'node_modules'],
       alias: {
         '@src': path.resolve(__dirname, 'src'),
-        '@app': path.resolve(__dirname, 'src/app'),
+        '@redux': path.resolve(__dirname, 'src/redux'),
+        '@features': path.resolve(__dirname, 'src/redux/features'),
         '@components': path.resolve(__dirname, 'src/components'),
         '@context': path.resolve(__dirname, 'src/context'),
-        '@features': path.resolve(__dirname, 'src/features'),
         '@images': path.resolve(__dirname, 'src/images'),
         '@layouts': path.resolve(__dirname, 'src/layouts'),
         '@pages': path.resolve(__dirname, 'src/pages'),
@@ -61,6 +62,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
           frontmatter {
             title
             tags
+            category
           }
           internal {
             contentFilePath
@@ -90,24 +92,12 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
           previousPostId,
           nextPostId,
           tags: node.frontmatter?.tags,
+          category: node.frontmatter?.category,
           type: 'mdx',
         },
       });
     });
   }
-
-  // const tags = result.data?.tagsGroup.group;
-  // if (tags) {
-  //   tags.forEach(tag => {
-  //     createPage({
-  //       path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
-  //       component: TagPageTemplete,
-  //       context: {
-  //         tag: tag.fieldValue
-  //       }
-  //     });
-  //   });
-  // }
 };
 
 export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
@@ -155,6 +145,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       description: String
       date: Date @dateformat
       tags: [String]
+      category: String
     }
 
     type Fields {

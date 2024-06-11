@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { RootState } from '@redux/rootReducer';
 
 const hoverAndSelectedTagStyle = css`
-  font-weight: var(--fontWeight-bold);
+  font-weight: bold;
   color: #f31010;
   background-color: #e0e0e0;
 `;
@@ -19,6 +19,17 @@ const tagStyle = css`
   font-size: 14px;
   text-decoration: none;
   color: #333;
+  text-align: center;
+  position: relative;
+
+  &::after {
+    content: attr(data-tag);
+    display: block;
+    font-weight: bold;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+  }
   &:hover {
     ${hoverAndSelectedTagStyle}
   }
@@ -54,6 +65,7 @@ const Tag = ({ tag, totalCount }: TagProps): JSX.Element => {
   return (
     <Link
       to={`/`}
+      data-tag={`${tag} ${totalCount !== undefined ? `(${totalCount})` : ''}`}
       css={selectedTags.includes(tag) ? [tagStyle, selectedTagStyle] : tagStyle}
       onClick={handleTagClick}
     >

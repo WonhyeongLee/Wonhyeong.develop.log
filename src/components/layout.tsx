@@ -73,12 +73,20 @@ const Layout = ({ location, title, children }: LayoutProps): JSX.Element => {
       <main css={mainWrapperStyle} className={isTagListVisible ? 'slideDown' : 'slideUp'}>
         <Transition in={isTagListVisible} timeout={300} unmountOnExit>
           {state => (
-            <div css={tagsListStyle(state)}>
-              <Tag key="All" tag="All" />
+            <ul css={tagsListStyle(state)} role="list">
+              <li key="All" role="listitem">
+                <Tag tag="All" />
+              </li>
               {tags.map(tag => (
-                <Tag key={tag.fieldValue} tag={tag.fieldValue || ''} totalCount={tag.totalCount} />
+                <li key={tag.fieldValue} role="list">
+                  <Tag
+                    key={tag.fieldValue}
+                    tag={tag.fieldValue || ''}
+                    totalCount={tag.totalCount}
+                  />
+                </li>
               ))}
-            </div>
+            </ul>
           )}
         </Transition>
         {children}

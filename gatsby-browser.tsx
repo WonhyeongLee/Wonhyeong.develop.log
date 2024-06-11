@@ -14,7 +14,7 @@ import '@fontsource/noto-sans-kr/900.css';
 // custom CSS styles
 import './src/style.css';
 // Highlighting for code blocks
-import 'prismjs/themes/prism.css';
+import 'prismjs/themes/prism-coy.css';
 // import Layout from "./src/components/layout"
 
 //SSG에서 Font Awesome 스타일이 head에 추가되는 시점을 조정

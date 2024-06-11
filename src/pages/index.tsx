@@ -54,7 +54,7 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.E
       <Bio />
       <hr></hr>
       <ol style={{ listStyle: `none` }}>
-        {filteredPosts.map(post => {
+        {filteredPosts.map((post, index) => {
           const title = post.frontmatter?.title || post.fields?.slug;
           return (
             <li key={post.fields?.slug}>
@@ -89,7 +89,7 @@ const BlogIndex = ({ data, location }: PageProps<Queries.BlogIndexQuery>): JSX.E
                   )}
                 </footer>
               </section>
-              <hr />
+              {index < filteredPosts.length - 1 && <hr />}
             </li>
           );
         })}
