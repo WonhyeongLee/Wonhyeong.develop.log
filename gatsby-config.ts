@@ -1,8 +1,12 @@
+import path from 'path';
+
 import { GatsbyConfig } from 'gatsby';
 import _ from 'lodash';
 
-import WrapImagePlugin from './plugins/gatsby-remark-wrap-image';
+// import WrapImagePlugin from './plugins/gatsby-remark-wrap-image';
 import { FeedQueryResult } from './src/types/FeedQueryResult';
+
+const WrapImagePlugin = require(path.resolve(__dirname, './plugins/gatsby-remark-wrap-image'));
 
 const config: GatsbyConfig = {
   siteMetadata: {
