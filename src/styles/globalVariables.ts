@@ -10,9 +10,9 @@ export const globalVariables = css`
     --maxWidth-xl: 36rem;
     --maxWidth-2xl: 42rem;
     --maxWidth-3xl: 48rem;
-    --maxWidth-4xl: 56rem;
+    --maxWidth-4xl: 52rem;
     --maxWidth-full: '100%';
-    --maxWidth-wrapper: var(--maxWidth-3xl);
+    --maxWidth-wrapper: var(--maxWidth-4xl);
     --spacing-px: '1px';
     --spacing-0: 0;
     --spacing-1: 0.25rem;
