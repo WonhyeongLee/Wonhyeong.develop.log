@@ -4,9 +4,11 @@ export const blogPostNavStyle = css`
   font-size: var(--fontSize-2);
   margin-top: var(--spacing-8);
   > ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    width: 100%;
+    margin: var(--spacing-4) 0;
+    grid-template-columns: 49.3% 49.3%;
+    column-gap: 1.4%;
     list-style: none;
   }
 `;
